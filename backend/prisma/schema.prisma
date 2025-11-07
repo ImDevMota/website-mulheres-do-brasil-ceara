@@ -1,15 +1,37 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Multiplicador {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  cpf          String   @unique
+  email        String   @unique
+  senha        String
+  estado       String
+  municipio    String
+  telefone     String
+  profissao    String
+  rodas        Roda[]   // relação 1:N (um multiplicador pode ter várias rodas)
+  criadoEm     DateTime @default(now())
+}
+
+model Roda {
+  id                Int       @id @default(autoincrement())
+  multiplicadorId   Int
+  multiplicador     Multiplicador @relation(fields: [multiplicadorId], references: [id])
+  data              DateTime
+  municipio         String
+  local             String
+  publicoAlvo       String
+  numeroParticipantes Int
+  fotoFrequenciaUrl String?
+  fotoRodaUrl       String?
+  status            String   @default("ativa") // ativa | encerrada
+  resumo            String?  // opcional
+  criadoEm          DateTime @default(now())
 }
