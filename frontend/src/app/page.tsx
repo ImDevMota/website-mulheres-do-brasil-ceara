@@ -1,10 +1,17 @@
-import Image from "next/image";
+"use client";
+
+import dynamic from "next/dynamic";
 import Header from "./components/Header";
 
-export default function Home() {
+const MapboxCeara = dynamic(() => import("./components/MapboxCeara"), {
+  ssr: false,
+});
+
+export default function Page() {
   return (
-    <main className="h-[550vh]">
+    <div className="w-full h-screen">
       <Header />
-    </main>
+      <MapboxCeara />
+    </div>
   );
 }

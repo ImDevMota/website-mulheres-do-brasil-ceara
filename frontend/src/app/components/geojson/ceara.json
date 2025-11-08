@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Ceará" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-40.347, -2.547],
+            [-38.347, -2.547],
+            [-38.347, -5.547],
+            [-40.347, -5.547],
+            [-40.347, -2.547]
+          ]
+        ]
+      }
+    }
+  ]
+}
