@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 import "./globals.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 export const metadata = {
   title: "Rodas de Conversa - Ceará",

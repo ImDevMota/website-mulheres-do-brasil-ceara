@@ -4,7 +4,7 @@ import { generateToken } from "../utils/generateToken.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { nome, cpf, email, senha, telefone, estado, municipio, profissao } =
+    const { nome, cpf, email, estado, municipio, profissao, telefone, senha } =
       req.body;
 
     const hashedPassword = await bcrypt.hash(senha, 10);
@@ -14,11 +14,11 @@ export const createUser = async (req, res) => {
         nome,
         cpf,
         email,
-        senha: hashedPassword,
-        telefone,
         estado,
         municipio,
         profissao,
+        telefone,
+        senha: hashedPassword,
       },
     });
 

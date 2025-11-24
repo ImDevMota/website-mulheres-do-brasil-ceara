@@ -5,17 +5,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-// import api from "../../services/api";
+import { login } from "../services/auth";
+import Header from "../components/Header";
 
 interface LoginFormData {
-  email: string;
-  password: string;
+  cpf: string;
+  senha: string;
 }
 
 export default function Login() {
   const [formData, setFormData] = useState<LoginFormData>({
-    email: "",
-    password: "",
+    cpf: "",
+    senha: "",
   });
 
   const router = useRouter();
@@ -32,12 +33,14 @@ export default function Login() {
     setError("");
 
     try {
-      //   const { data: token } = await api.post("/login", {
-      //     email: formData.email,
-      //     password: formData.password,
-      //   });
+      const response = await login(formData.cpf, formData.senha);
 
-      //   localStorage.setItem("token", token);
+      if (!response) {
+        toast.error("Usuário não encontrado");
+        setError("Usuário não encontrado");
+        return;
+      }
+
       toast.success("Login realizado com sucesso!");
 
       router.push("/");
@@ -49,8 +52,9 @@ export default function Login() {
   };
 
   return (
-    <section className="flex items-center w-screen h-screen justify-center bg-gray-100 font-poppins">
-      <div className="flex flex-col items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] sm:px-[5rem] sm:py-[3rem] py-[1.3rem] sm:pb-[4rem] pb-[3.5rem]">
+    <div className="flex flex-col items-center w-screen h-screen  bg-gray-100 font-poppins">
+      <Header />
+      <div className="flex flex-col mt-[9rem] items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] py-[1.5rem]">
         <h1 className="text-[32px] text-black/80 font-[600]">Login</h1>
 
         <form
@@ -59,31 +63,31 @@ export default function Login() {
         >
           <div className="flex flex-col w-full relative">
             <input
-              type="email"
-              name="inputEmail"
+              type="text"
+              name="cpf"
               onChange={handleChange}
               className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
-              placeholder="E-mail"
-              id="inputEmail"
+              placeholder="000.000.000-00"
+              id="cpf"
               required
             />
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputEmail"
+              htmlFor="cpf"
             >
-              E-mail
+              CPF
             </label>
           </div>
 
           <div className="flex flex-col w-full relative">
             <input
               type={showPassword ? "text" : "password"}
-              name="inputSenha"
+              name="senha"
               onChange={handleChange}
               className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="Senha"
-              id="inputSenha"
+              id="senha"
               minLength={6}
               required
             />
@@ -138,7 +142,7 @@ export default function Login() {
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputSenha"
+              htmlFor="senha"
             >
               Senha
             </label>
@@ -154,7 +158,7 @@ export default function Login() {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 transition-all duration-[0.5s] w-full py-[0.545rem] h-[2.7rem] mt-[0.4rem] text-[14px] font-[600] tracking-[0.5px] rounded-[4px] text-white"
           >
-            Log in
+            Entrar
           </button>
         </form>
 
@@ -165,6 +169,6 @@ export default function Login() {
           </Link>
         </p>
       </div>
-    </section>
+    </div>
   );
 }

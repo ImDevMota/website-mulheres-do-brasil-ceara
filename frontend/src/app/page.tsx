@@ -13,8 +13,6 @@ export default function Page() {
     <div className="w-full h-screen">
       <Header />
       <MapboxCeara />
-
-      <Link href="/register">Ir para registro</Link>
     </div>
   );
 }

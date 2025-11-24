@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -16,22 +17,30 @@ model Multiplicador {
   municipio    String
   telefone     String
   profissao    String
-  rodas        Roda[]   // relação 1:N (um multiplicador pode ter várias rodas)
+  rodas        Roda[]
   criadoEm     DateTime @default(now())
+  
+  @@map("multiplicadores")
 }
 
 model Roda {
-  id                Int       @id @default(autoincrement())
-  multiplicadorId   Int
-  multiplicador     Multiplicador @relation(fields: [multiplicadorId], references: [id])
-  data              DateTime
-  municipio         String
-  local             String
-  publicoAlvo       String
-  numeroParticipantes Int
-  fotoFrequenciaUrl String?
-  fotoRodaUrl       String?
-  status            String   @default("ativa") // ativa | encerrada
-  resumo            String?  // opcional
-  criadoEm          DateTime @default(now())
+  id                  Int             @id @default(autoincrement())
+  multiplicadorId     Int
+  multiplicador       Multiplicador   @relation(fields: [multiplicadorId], references: [id], onDelete: Cascade)
+  tema                String
+  data                DateTime
+  hora_inicio         DateTime
+  municipio           String
+  local               String
+  publico_alvo        String
+  latitude            Float?
+  longitude           Float?
+  numeroParticipantes Int?
+  fotoFrequenciaUrl   String?
+  fotoRodaUrl         String?
+  status              String          @default("ativa")
+  resumo              String?
+  criadoEm            DateTime        @default(now())
+  
+  @@map("rodas")
 }

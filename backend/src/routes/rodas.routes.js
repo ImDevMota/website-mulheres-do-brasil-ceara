@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { criarRoda } from "../controllers/rodaController.js";
+import { listarRodas, criarRoda } from "../controllers/rodaController.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
-const router = Router();
-router.post("/", verifyToken, criarRoda);
+const rodaRoutes = Router();
 
-export default router;
+rodaRoutes.post("/", verifyToken, criarRoda);
+rodaRoutes.get("/", listarRodas);
+
+export default rodaRoutes;

@@ -5,25 +5,32 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-// import api from "../../services/api";
+import { register } from "../services/auth";
+import Header from "../components/Header";
 
 interface RegisterFormData {
-  username: string;
+  nome: string;
+  cpf: string;
   email: string;
-  password: string;
-  confirmPassword: string;
-  estado?: string;
-  municipio?: string;
+  estado: string;
+  municipio: string;
+  profissao: string;
+  telefone: string;
+  senha: string;
+  confirmarSenha: string;
 }
 
 export default function page() {
   const [formData, setFormData] = useState<RegisterFormData>({
-    username: "",
+    nome: "",
+    cpf: "",
     email: "",
-    password: "",
-    confirmPassword: "",
     estado: "",
     municipio: "",
+    profissao: "",
+    telefone: "",
+    senha: "",
+    confirmarSenha: "",
   });
 
   const router = useRouter();
@@ -38,7 +45,7 @@ export default function page() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.senha !== formData.confirmarSenha) {
       setError("As senhas não coincidem");
       return;
     }
@@ -46,11 +53,16 @@ export default function page() {
     setError("");
 
     try {
-      //   await api.post("/cadastro", {
-      //     name: formData.username,
-      //     email: formData.email,
-      //     password: formData.password,
-      //   });
+      await register(
+        formData.nome,
+        formData.cpf,
+        formData.email,
+        formData.estado,
+        formData.municipio,
+        formData.profissao,
+        formData.telefone,
+        formData.senha
+      );
 
       toast.success("Usuário Cadastrado com Sucesso!");
 
@@ -61,8 +73,9 @@ export default function page() {
   };
 
   return (
-    <section className="flex items-center w-screen h-screen justify-center bg-gray-100 font-poppins">
-      <div className="flex flex-col items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] sm:px-[5rem] sm:py-[3rem] py-[1.3rem] sm:pb-[4rem] pb-[3.5rem]">
+    <div className="flex flex-col items-center min-h-screen w-screen bg-gray-100 font-poppins">
+      <Header />
+      <div className="flex flex-col mt-[7rem] items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] py-[1.5rem]">
         <h1 className="text-[32px] text-black/80 font-[600]">Cadastro</h1>
 
         <form
@@ -72,17 +85,17 @@ export default function page() {
           <div className="flex flex-col w-full relative">
             <input
               type="text"
-              name="inputName"
+              name="nome"
               onChange={handleChange}
               className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="Nome Completo"
-              id="inputName"
+              id="nome"
               required
             />
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputName"
+              htmlFor="nome"
             >
               Nome Completo
             </label>
@@ -91,17 +104,17 @@ export default function page() {
           <div className="flex flex-col w-full relative">
             <input
               type="text"
-              name="inputCpf"
+              name="cpf"
               onChange={handleChange}
               className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="000.000.000-00"
-              id="inputCpf"
+              id="cpf"
               required
             />
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputCpf"
+              htmlFor="cpf"
             >
               CPF
             </label>
@@ -110,17 +123,17 @@ export default function page() {
           <div className="flex flex-col w-full relative">
             <input
               type="email"
-              name="inputEmail"
+              name="email"
               onChange={handleChange}
               className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="E-mail"
-              id="inputEmail"
+              id="email"
               required
             />
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputEmail"
+              htmlFor="email"
             >
               E-mail
             </label>
@@ -129,17 +142,17 @@ export default function page() {
           <div className="flex flex-col w-full relative">
             <input
               type="tel"
-              name="inputTelefone"
+              name="telefone"
               onChange={handleChange}
               className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="(00) 00000-0000"
-              id="inputTelefone"
+              id="telefone"
               required
             />
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputTelefone"
+              htmlFor="telefone"
             >
               Telefone
             </label>
@@ -148,17 +161,17 @@ export default function page() {
           <div className="flex flex-col w-full relative">
             <input
               type="text"
-              name="inputProfissao"
+              name="profissao"
               onChange={handleChange}
               className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="Profissão"
-              id="inputProfissao"
+              id="profissao"
               required
             />
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputProfissao"
+              htmlFor="profissao"
             >
               Profissão
             </label>
@@ -166,13 +179,13 @@ export default function page() {
 
           <div className="flex flex-col w-full relative">
             <select
-              name="selectEstado"
+              name="estado"
               onChange={(e) => {
                 const estado = e.target.value;
                 setFormData({ ...formData, estado, municipio: "" }); // atualiza estado
               }}
               className="border-[2px] border-gray-300 rounded-[4px] px-[0.8rem] pr-[2rem] h-[2.7rem] py-[0.4rem] w-full text-black/80 appearance-none focus:outline-none focus:border-blue-500"
-              id="selectEstado"
+              id="estado"
               required
             >
               <option value="">Selecione o Estado</option>
@@ -197,13 +210,13 @@ export default function page() {
 
           <div className="flex flex-col w-full relative">
             <select
-              name="selectMunicipio"
+              name="municipio"
               onChange={(e) =>
                 setFormData({ ...formData, municipio: e.target.value })
               }
               className="border-[2px] border-gray-300 rounded-[4px] px-[0.8rem] pr-[2rem] h-[2.7rem] py-[0.4rem] w-full text-black/80 appearance-none focus:outline-none focus:border-blue-500"
               disabled={!formData.estado}
-              id="selectMunicipio"
+              id="municipio"
               required
             >
               <option value="">
@@ -254,11 +267,11 @@ export default function page() {
           <div className="flex flex-col w-full relative">
             <input
               type={showPassword ? "text" : "password"}
-              name="inputSenha"
+              name="senha"
               onChange={handleChange}
               className="border-[2px] peer text-black/80 border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="Senha"
-              id="inputSenha"
+              id="senha"
               minLength={6}
               required
             />
@@ -313,7 +326,7 @@ export default function page() {
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputSenha"
+              htmlFor="senha"
             >
               Senha
             </label>
@@ -322,11 +335,11 @@ export default function page() {
           <div className="flex flex-col w-full relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
-              name="inputConfirmarSenha"
+              name="confirmarSenha"
               onChange={handleChange}
               className="border-[2px] peer text-black/80 border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
               placeholder="Confirmar Senha"
-              id="inputConfirmarSenha"
+              id="confirmarSenha"
               minLength={6}
               required
             />
@@ -381,7 +394,7 @@ export default function page() {
 
             <label
               className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="inputConfirmarSenha"
+              htmlFor="confirmarSenha"
             >
               Confirmar Senha
             </label>
@@ -408,6 +421,6 @@ export default function page() {
           </Link>
         </p>
       </div>
-    </section>
+    </div>
   );
 }

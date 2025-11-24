@@ -3,8 +3,10 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
 export const login = async (req, res) => {
-  const { email, senha } = req.body;
-  const user = await prisma.user.findUnique({ where: { email } });
+  const { cpf, senha } = req.body;
+  const user = await prisma.Multiplicador.findUnique({
+    where: { cpf },
+  });
 
   if (!user) return res.status(404).json({ message: "Usuário não encontrado" });
 
@@ -12,5 +14,18 @@ export const login = async (req, res) => {
   if (!valid) return res.status(401).json({ message: "Senha incorreta" });
 
   const token = generateToken(user.id);
-  res.json({ token, user });
+
+  const { senha: _, ...userWithoutPassword } = user;
+
+  res.cookie("token", token, {
+    httpOnly: true, // Segurança: não acessível via JavaScript
+    secure: true, // HTTPS apenas
+    sameSite: "strict", // Proteção contra CSRF
+    maxAge: 3600000, // 1 hora em ms
+  });
+
+  res.json({
+    token,
+    user: userWithoutPassword,
+  });
 };
