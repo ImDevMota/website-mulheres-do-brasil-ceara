@@ -8,25 +8,24 @@ datasource db {
 }
 
 model Multiplicador {
-  id           Int      @id @default(autoincrement())
-  nome         String
-  cpf          String   @unique
-  email        String   @unique
-  senha        String
-  estado       String
-  municipio    String
-  telefone     String
-  profissao    String
-  rodas        Roda[]
-  criadoEm     DateTime @default(now())
-  
+  id        Int      @id @default(autoincrement())
+  nome      String
+  cpf       String   @unique
+  email     String   @unique
+  senha     String
+  estado    String
+  municipio String
+  telefone  String
+  profissao String
+  criadoEm  DateTime @default(now())
+  rodas     Roda[]
+
   @@map("multiplicadores")
 }
 
 model Roda {
-  id                  Int             @id @default(autoincrement())
+  id                  Int           @id @default(autoincrement())
   multiplicadorId     Int
-  multiplicador       Multiplicador   @relation(fields: [multiplicadorId], references: [id], onDelete: Cascade)
   tema                String
   data                DateTime
   hora_inicio         DateTime
@@ -38,9 +37,10 @@ model Roda {
   numeroParticipantes Int?
   fotoFrequenciaUrl   String?
   fotoRodaUrl         String?
-  status              String          @default("ativa")
+  status              String        @default("ativa")
   resumo              String?
-  criadoEm            DateTime        @default(now())
-  
+  criadoEm            DateTime      @default(now())
+  multiplicador       Multiplicador @relation(fields: [multiplicadorId], references: [id], onDelete: Cascade)
+
   @@map("rodas")
 }

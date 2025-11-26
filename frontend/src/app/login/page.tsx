@@ -43,7 +43,7 @@ export default function Login() {
 
       toast.success("Login realizado com sucesso!");
 
-      router.push("/");
+      router.push("/dashboard");
     } catch (err) {
       toast.error("Senha ou E-mail Incorretos");
       setError("E-mail ou Senha incorretos");
