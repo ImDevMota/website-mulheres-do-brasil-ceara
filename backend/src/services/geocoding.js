@@ -1,48 +1,34 @@
-import axios from "axios";
+export async function buscarCoordenadas(
+  endereco,
+  municipio,
+  estado = "CE",
+  bairro
+) {
+  // Corrige abreviações
+  endereco = endereco.replace(/^R\.\s*/i, "Rua ").replace(/Mte\./i, "Mestre");
 
-// Usando Nominatim (OpenStreetMap) - 100% gratuito
-export async function buscarCoordenadas(endereco, municipio, estado = "CE") {
+  const enderecoCompleto = `${endereco}, ${
+    bairro || ""
+  }, ${municipio}, ${estado}, Brasil`;
+
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+    enderecoCompleto
+  )}.json?access_token=${process.env.MAPBOX_TOKEN}&limit=1&country=br`;
+
   try {
-    const query = `${endereco}, ${municipio}, ${estado}, Brasil`;
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-      query
-    )}&limit=1`;
+    const response = await axios.get(url);
 
-    const response = await axios.get(url, {
-      headers: {
-        "User-Agent": "RodasConversaApp/1.0", // Obrigatório pela política do Nominatim
-      },
-    });
-
-    if (response.data && response.data.length > 0) {
+    if (response.data?.features?.length > 0) {
+      const f = response.data.features[0];
       return {
-        latitude: parseFloat(response.data[0].lat),
-        longitude: parseFloat(response.data[0].lon),
-        display_name: response.data[0].display_name,
+        latitude: f.center[1],
+        longitude: f.center[0],
+        display_name: f.place_name,
       };
     }
-
-    return null;
-  } catch (error) {
-    console.error("Erro ao buscar coordenadas:", error);
-    return null;
+  } catch (err) {
+    console.error("Erro ao buscar coordenadas:", err.message);
   }
-}
 
-// Busca reversa (coordenadas → endereço)
-export async function buscarEndereco(latitude, longitude) {
-  try {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-
-    const response = await axios.get(url, {
-      headers: {
-        "User-Agent": "RodasConversaApp/1.0",
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.error("Erro ao buscar endereço:", error);
-    return null;
-  }
+  return null;
 }
