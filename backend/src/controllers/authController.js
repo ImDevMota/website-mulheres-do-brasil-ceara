@@ -4,7 +4,7 @@ import { generateToken } from "../utils/generateToken.js";
 
 export const login = async (req, res) => {
   const { cpf, senha } = req.body;
-  const user = await prisma.Multiplicador.findUnique({
+  const user = await prisma.multiplicador.findUnique({
     where: { cpf },
   });
 

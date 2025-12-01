@@ -8,6 +8,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { register } from "../services/auth";
 import { criarRoda } from "../services/rodas";
+import SectionRodas from "../components/SectionRodas";
 
 interface RodaFormData {
   tema: string;
@@ -65,6 +66,8 @@ export default function Page() {
   return (
     <div className="flex flex-col items-center min-h-screen w-screen bg-gray-100 font-poppins">
       <Header />
+
+      <SectionRodas />
 
       <div className="flex flex-col mt-[7rem] items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] py-[1.5rem]">
         <h1 className="text-[30px] text-black/80 text-center font-[600]">

@@ -5,6 +5,11 @@ export async function listarRodas() {
   return response.data;
 }
 
+export async function listarRodasMultiplicador() {
+  const response = await api.get("/rodas/multiplicador");
+  return response.data;
+}
+
 export async function criarRoda(data: {
   tema: string;
   data: string;
@@ -19,15 +24,17 @@ export async function criarRoda(data: {
   return response.data;
 }
 
-export async function encerrarRoda(
-  fotoFrequencia: string,
-  fotoRodaConversa: string,
-  resumo: string
-) {
-  const response = await api.post("/encerrar-roda", {
-    fotoFrequencia,
-    fotoRodaConversa,
-    resumo,
+export async function encerrarRoda(data: {
+  rodaId: number;
+  fotoFrequencia: string;
+  fotoRodaConversa: string;
+  resumo: string;
+}) {
+  const response = await api.post("/rodas/encerrar", {
+    rodaId: data.rodaId,
+    fotoFrequencia: data.fotoFrequencia,
+    fotoRodaConversa: data.fotoRodaConversa,
+    resumo: data.resumo,
   });
 
   return response.data;
