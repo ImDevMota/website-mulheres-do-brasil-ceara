@@ -5,6 +5,11 @@ export async function listarRodas() {
   return response.data;
 }
 
+export async function listarRodasHistorico() {
+  const response = await api.get("/rodas/historico");
+  return response.data;
+}
+
 export async function listarRodasMultiplicador() {
   const response = await api.get("/rodas/multiplicador");
   return response.data;

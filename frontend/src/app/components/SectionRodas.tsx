@@ -85,6 +85,53 @@ export default function SectionRodas() {
     setResumo("");
   }
 
+  async function comprimirImagem(
+    file: File,
+    maxWidth = 1200,
+    quality = 0.7
+  ): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+
+          // Redimensiona se a imagem for maior que maxWidth
+          if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            reject(new Error("Não foi possível criar contexto do canvas"));
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Converte para JPEG com compressão
+          const compressedBase64 = canvas.toDataURL("image/jpeg", quality);
+          resolve(compressedBase64);
+        };
+
+        img.onerror = () => reject(new Error("Erro ao carregar imagem"));
+      };
+
+      reader.onerror = () => reject(new Error("Erro ao ler arquivo"));
+    });
+  }
+
   async function handleEncerrarRoda(e: React.FormEvent) {
     e.preventDefault();
 

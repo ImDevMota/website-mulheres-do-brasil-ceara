@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { register } from "../services/auth";
 import { criarRoda } from "../services/rodas";
 import SectionRodas from "../components/SectionRodas";
+import SectionHistoricoRodas from "../components/SectionHistoricoRodas";
 
 interface RodaFormData {
   tema: string;
@@ -68,6 +69,8 @@ export default function Page() {
       <Header />
 
       <SectionRodas />
+
+      <SectionHistoricoRodas />
 
       <div className="flex flex-col mt-[7rem] items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] py-[1.5rem]">
         <h1 className="text-[30px] text-black/80 text-center font-[600]">

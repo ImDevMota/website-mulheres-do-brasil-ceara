@@ -82,40 +82,103 @@ export const listarRodasMultiplicador = async (req, res) => {
   }
 };
 
+export const listarRodasHistorico = async (req, res) => {
+  try {
+    const usuarioId = req.userId; // ID extraído do token JWT
+
+    // ===== DEBUG - ADICIONE ISSO =====
+    console.log("=== DEBUG LISTAR RODAS ===");
+    console.log("Usuario ID do token:", usuarioId);
+    console.log("Tipo do usuarioId:", typeof usuarioId);
+    // =================================
+
+    // Busca APENAS as rodas do usuário autenticado
+    const rodas = await prisma.roda.findMany({
+      where: {
+        multiplicadorId: usuarioId, // ⚠️ Verifique se o nome do campo está correto
+        status: "finalizada",
+      },
+      orderBy: {
+        data: "asc",
+      },
+    });
+
+    // ===== DEBUG - ADICIONE ISSO =====
+    console.log("Rodas encontradas:", rodas.length);
+    console.log(
+      "Usuario IDs das rodas:",
+      rodas.map((r) => r.usuario_id)
+    );
+    // =================================
+
+    res.status(200).json(rodas);
+  } catch (error) {
+    console.error("Erro ao buscar rodas:", error);
+    return res.status(500).json({ message: "Erro ao buscar rodas" });
+  }
+};
+
 export const encerrarRoda = async (req, res) => {
   try {
     const usuarioId = req.usuarioId;
     const { rodaId, fotoFrequencia, fotoRodaConversa, resumo } = req.body;
 
+    // ⚠️ DEBUG - Adicione para ver o que está chegando
+    console.log("=== ENCERRAR RODA ===");
+    console.log("Usuario ID:", usuarioId);
+    console.log("Roda ID:", rodaId);
+    console.log("Tipo do rodaId:", typeof rodaId);
+    console.log("Resumo length:", resumo?.length);
+
+    // ⚠️ IMPORTANTE: Converte rodaId para Number
+    const rodaIdNumber = Number(rodaId);
+
+    if (isNaN(rodaIdNumber)) {
+      return res.status(400).json({ message: "ID da roda inválido" });
+    }
+
     // Verifica se a roda pertence ao usuário
     const roda = await prisma.roda.findFirst({
       where: {
-        id: rodaId,
-        usuario_id: usuarioId,
+        id: rodaIdNumber, // ← Usa o número convertido
+        multiplicadorId: usuarioId, // ⚠️ IMPORTANTE: Use multiplicadorId em vez de usuario_id
       },
     });
 
     if (!roda) {
+      console.log(
+        "Roda não encontrada para usuário:",
+        usuarioId,
+        "rodaId:",
+        rodaIdNumber
+      );
       return res
         .status(403)
         .json({ message: "Você não tem permissão para encerrar esta roda" });
     }
 
-    // Atualiza a roda
-    const rodaEncerrada = await prisma.Roda.update({
-      where: { id: rodaId },
+    // ⚠️ CRÍTICO: Use os nomes corretos dos campos do Prisma
+    const rodaEncerrada = await prisma.roda.update({
+      where: { id: rodaIdNumber },
       data: {
-        status: "desativada",
-        foto_frequencia: fotoFrequencia,
-        foto_roda_conversa: fotoRodaConversa,
+        status: "finalizada",
+        fotoFrequenciaUrl: fotoFrequencia, // ← Nome correto
+        fotoRodaUrl: fotoRodaConversa, // ← Nome correto
         resumo: resumo,
       },
     });
 
+    console.log("✅ Roda encerrada com sucesso:", rodaEncerrada.id);
+
     return res.json(rodaEncerrada);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Erro ao encerrar roda" });
+    console.error("❌ ERRO AO ENCERRAR RODA:", error);
+    console.error("Mensagem:", error.message);
+    console.error("Stack:", error.stack);
+    return res.status(500).json({
+      message: "Erro ao encerrar roda",
+      error: error.message, // ← Retorna a mensagem de erro para debug
+    });
   }
 };
 

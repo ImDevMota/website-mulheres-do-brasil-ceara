@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Multiplicador {
@@ -19,7 +20,7 @@ model Multiplicador {
   profissao String
   criadoEm  DateTime @default(now())
   rodas     Roda[]
-
+  
   @@map("multiplicadores")
 }
 
@@ -41,6 +42,6 @@ model Roda {
   resumo              String?
   criadoEm            DateTime      @default(now())
   multiplicador       Multiplicador @relation(fields: [multiplicadorId], references: [id], onDelete: Cascade)
-
+  
   @@map("rodas")
 }
