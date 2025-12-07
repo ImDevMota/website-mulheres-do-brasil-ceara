@@ -10,6 +10,8 @@ import { register } from "../services/auth";
 import { criarRoda } from "../services/rodas";
 import SectionRodas from "../components/SectionRodas";
 import SectionHistoricoRodas from "../components/SectionHistoricoRodas";
+import SectionGrafico from "../components/SectionGrafico";
+import Footer from "../components/Footer";
 
 interface RodaFormData {
   tema: string;
@@ -65,21 +67,27 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-screen bg-gray-100 font-poppins">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
+
+      <SectionGrafico />
 
       <SectionRodas />
 
       <SectionHistoricoRodas />
 
-      <div className="flex flex-col mt-[7rem] items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] py-[1.5rem]">
-        <h1 className="text-[30px] text-black/80 text-center font-[600]">
-          Nova Roda de Conversas:
-        </h1>
+      <section className="py-12 px-4 bg-white">
+        <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-xl p-8">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">
+              Nova Roda de Conversa
+            </h1>
+            <p className="text-gray-600 mt-2">Crie uma nova roda de conversa</p>
+          </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center w-[100%] gap-y-[1rem] mt-[1rem]"
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4"
         >
           {/* Tema */}
           <div className="flex flex-col w-full relative">
@@ -87,7 +95,7 @@ export default function Page() {
               type="text"
               name="tema"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="Tema da Roda"
               id="tema"
               required
@@ -106,7 +114,7 @@ export default function Page() {
               type="date"
               name="data"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               id="data"
               required
             />
@@ -124,7 +132,7 @@ export default function Page() {
               type="time"
               name="hora_inicio"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               id="hora_inicio"
               required
             />
@@ -141,7 +149,7 @@ export default function Page() {
             <select
               name="municipio"
               onChange={handleChange}
-              className="border-[2px] border-gray-300 rounded-[4px] px-[0.8rem] pr-[2rem] h-[2.7rem] py-[0.4rem] w-full text-black/80 appearance-none focus:outline-none focus:border-blue-500"
+              className="border-2 border-gray-200 rounded-xl px-4 pr-8 h-12 w-full text-gray-800 appearance-none focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               id="municipio"
               required
             >
@@ -171,7 +179,7 @@ export default function Page() {
               type="text"
               name="local"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="Endereço do local"
               id="local"
               required
@@ -190,7 +198,7 @@ export default function Page() {
               type="text"
               name="publico_alvo"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="Público alvo"
               id="publico_alvo"
               required
@@ -203,14 +211,17 @@ export default function Page() {
             </label>
           </div>
 
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 transition-all duration-[0.5s] w-full py-[0.545rem] h-[2.7rem] mt-[0.4rem] text-[14px] font-[600] tracking-[0.5px] rounded-[4px] text-white"
-          >
-            Criar Roda
-          </button>
-        </form>
-      </div>
+            <button
+              type="submit"
+              className="w-full bg-[#e91e63] hover:bg-[#c2185b] text-white py-3 h-12 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
+            >
+              Criar Roda
+            </button>
+          </form>
+        </div>
+      </section>
+      
+      <Footer />
     </div>
   );
 }

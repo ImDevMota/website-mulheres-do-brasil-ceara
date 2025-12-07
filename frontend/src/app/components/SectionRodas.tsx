@@ -27,6 +27,16 @@ export default function SectionRodas() {
   const [fotoFrequencia, setFotoFrequencia] = useState<File | null>(null);
   const [fotoRodaConversa, setFotoRodaConversa] = useState<File | null>(null);
   const [resumo, setResumo] = useState("");
+  const [idadesSelecionadas, setIdadesSelecionadas] = useState<number[]>([]);
+
+  // Opções de idade predefinidas
+  const opcoesIdade = [
+    { valor: 1, label: "0-12 anos (Crianças)" },
+    { valor: 2, label: "13-17 anos (Adolescentes)" },
+    { valor: 3, label: "18-29 anos (Jovens)" },
+    { valor: 4, label: "30-59 anos (Adultos)" },
+    { valor: 5, label: "60+ anos (Idosos)" },
+  ];
 
   useEffect(() => {
     carregarRodas();
@@ -37,10 +47,11 @@ export default function SectionRodas() {
       setLoading(true);
       setError(null);
 
-      // A API já retorna apenas as rodas do usuário autenticado
+      // A API retorna apenas as rodas do multiplicador autenticado
       // O backend verifica o token JWT e filtra automaticamente
       const dados = await listarRodasMultiplicador();
 
+      // Não precisa mais filtrar aqui, o backend já retorna apenas rodas ativas do usuário
       setRodas(dados);
     } catch (err) {
       setError("Erro ao carregar as rodas. Tente novamente.");
@@ -58,11 +69,12 @@ export default function SectionRodas() {
   }
 
   function formatarHorario(horario: string): string {
-    // Remove a parte da data se existir (formato ISO: 2025-11-27T16:50:00.000Z)
+    // Converte o horário UTC para o horário local do navegador
     if (horario.includes("T")) {
-      const horaCompleta = horario.split("T")[1];
-      // Pega apenas HH:MM
-      return horaCompleta.substring(0, 5);
+      const dataHora = new Date(horario);
+      const horas = dataHora.getHours().toString().padStart(2, "0");
+      const minutos = dataHora.getMinutes().toString().padStart(2, "0");
+      return `${horas}:${minutos}`;
     }
     // Se já estiver no formato HH:MM:SS ou HH:MM, retorna apenas HH:MM
     return horario.substring(0, 5);
@@ -75,6 +87,7 @@ export default function SectionRodas() {
     setFotoFrequencia(null);
     setFotoRodaConversa(null);
     setResumo("");
+    setIdadesSelecionadas([]);
   }
 
   function fecharModal() {
@@ -83,6 +96,17 @@ export default function SectionRodas() {
     setFotoFrequencia(null);
     setFotoRodaConversa(null);
     setResumo("");
+    setIdadesSelecionadas([]);
+  }
+
+  function toggleIdade(valor: number) {
+    setIdadesSelecionadas((prev) => {
+      if (prev.includes(valor)) {
+        return prev.filter((id) => id !== valor);
+      } else {
+        return [...prev, valor];
+      }
+    });
   }
 
   async function comprimirImagem(
@@ -140,34 +164,24 @@ export default function SectionRodas() {
       return;
     }
 
+    if (idadesSelecionadas.length === 0) {
+      alert("Por favor, selecione pelo menos uma faixa etária");
+      return;
+    }
+
     try {
       setLoadingEncerrar(true);
 
-      // Converte arquivos para base64
-      const reader1 = new FileReader();
-      const reader2 = new FileReader();
-
-      reader1.readAsDataURL(fotoFrequencia);
-      reader2.readAsDataURL(fotoRodaConversa);
-
-      const foto1Promise = new Promise<string>((resolve) => {
-        reader1.onload = () => resolve(reader1.result as string);
-      });
-
-      const foto2Promise = new Promise<string>((resolve) => {
-        reader2.onload = () => resolve(reader2.result as string);
-      });
-
-      const [foto1Base64, foto2Base64] = await Promise.all([
-        foto1Promise,
-        foto2Promise,
-      ]);
+      // Comprime as imagens antes de enviar (reduz o tamanho)
+      const foto1Comprimida = await comprimirImagem(fotoFrequencia);
+      const foto2Comprimida = await comprimirImagem(fotoRodaConversa);
 
       // Chama a função com objeto (Opção 2)
       await encerrarRoda({
         rodaId: rodaSelecionada.id,
-        fotoFrequencia: foto1Base64,
-        fotoRodaConversa: foto2Base64,
+        fotoFrequencia: foto1Comprimida,
+        fotoRodaConversa: foto2Comprimida,
+        faixasEtarias: idadesSelecionadas,
         resumo,
       });
 
@@ -184,13 +198,13 @@ export default function SectionRodas() {
 
   if (loading) {
     return (
-      <section className="py-12 px-4">
+      <section className="py-12 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
             Rodas Ativas
           </h2>
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e91e63]"></div>
           </div>
         </div>
       </section>
@@ -199,7 +213,7 @@ export default function SectionRodas() {
 
   if (error) {
     return (
-      <section className="py-12 px-4">
+      <section className="py-12 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
             Rodas Ativas
@@ -219,13 +233,13 @@ export default function SectionRodas() {
   }
 
   return (
-    <section className="py-12 px-4">
+    <section className="py-12 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold text-gray-800">Rodas Ativas</h2>
           <button
             onClick={carregarRodas}
-            className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2"
+            className="bg-[#e91e63] text-white px-4 py-2 rounded-lg hover:bg-[#c2185b] transition flex items-center gap-2"
           >
             <svg
               className="w-4 h-4"
@@ -257,7 +271,7 @@ export default function SectionRodas() {
                 key={roda.id}
                 className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full"
               >
-                <div className="bg-blue-900 p-4 min-h-[80px] flex items-center">
+                <div className="bg-[#e91e63] p-4 min-h-[80px] flex items-center">
                   <h3 className="text-xl font-bold text-white line-clamp-2">
                     {roda.tema}
                   </h3>
@@ -265,7 +279,7 @@ export default function SectionRodas() {
 
                 <div className="p-6 space-y-4 flex-grow">
                   <div className="flex items-start gap-3">
-                    <Calendar className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <Calendar className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Data</p>
                       <p className="font-semibold text-gray-800">
@@ -275,7 +289,7 @@ export default function SectionRodas() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <Clock className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Horário</p>
                       <p className="font-semibold text-gray-800">
@@ -285,7 +299,7 @@ export default function SectionRodas() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <MapPin className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Local</p>
                       <p className="font-semibold text-gray-800 line-clamp-2">
@@ -296,7 +310,7 @@ export default function SectionRodas() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <Users className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Público-alvo</p>
                       <p className="font-semibold text-gray-800 line-clamp-1">
@@ -309,7 +323,7 @@ export default function SectionRodas() {
                 <div className="px-6 pb-6 mt-auto">
                   <button
                     onClick={() => abrirModal(roda)}
-                    className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-800 transition font-semibold"
+                    className="w-full bg-[#e91e63] text-white py-2 rounded-lg hover:bg-[#c2185b] transition font-semibold"
                   >
                     Finalizar Roda
                   </button>
@@ -325,14 +339,14 @@ export default function SectionRodas() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             {/* Header do Modal */}
-            <div className="sticky top-0 bg-blue-900 text-white p-6 flex justify-between items-center rounded-t-lg">
+            <div className="sticky top-0 bg-[#e91e63] text-white p-6 flex justify-between items-center rounded-t-lg">
               <div>
                 <h3 className="text-2xl font-bold">Finalizar Roda</h3>
                 <p className="text-blue-100 mt-1">{rodaSelecionada.tema}</p>
               </div>
               <button
                 onClick={fecharModal}
-                className="text-white hover:bg-blue-800 p-2 rounded-lg transition"
+                className="text-white hover:bg-[#c2185b] p-2 rounded-lg transition"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -351,7 +365,7 @@ export default function SectionRodas() {
                   onChange={(e) =>
                     setFotoFrequencia(e.target.files?.[0] || null)
                   }
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-900 hover:file:bg-blue-100 cursor-pointer"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#fce4ec] file:text-[#e91e63] hover:file:bg-[#f8bbd9] cursor-pointer"
                 />
                 {fotoFrequencia && (
                   <p className="text-sm text-green-600 mt-2">
@@ -372,11 +386,39 @@ export default function SectionRodas() {
                   onChange={(e) =>
                     setFotoRodaConversa(e.target.files?.[0] || null)
                   }
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-900 hover:file:bg-blue-100 cursor-pointer"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#fce4ec] file:text-[#e91e63] hover:file:bg-[#f8bbd9] cursor-pointer"
                 />
                 {fotoRodaConversa && (
                   <p className="text-sm text-green-600 mt-2">
                     ✓ {fotoRodaConversa.name}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  Faixas Etárias do Público{" "}
+                  <span className="text-red-500">*</span>
+                </label>
+                <div className="space-y-2">
+                  {opcoesIdade.map((opcao) => (
+                    <label
+                      key={opcao.valor}
+                      className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={idadesSelecionadas.includes(opcao.valor)}
+                        onChange={() => toggleIdade(opcao.valor)}
+                        className="w-5 h-5 text-[#e91e63] border-gray-300 rounded focus:ring-[#e91e63] cursor-pointer"
+                      />
+                      <span className="ml-3 text-gray-700">{opcao.label}</span>
+                    </label>
+                  ))}
+                </div>
+                {idadesSelecionadas.length > 0 && (
+                  <p className="text-sm text-green-600 mt-2">
+                    ✓ {idadesSelecionadas.length} faixa(s) selecionada(s)
                   </p>
                 )}
               </div>
@@ -411,7 +453,7 @@ export default function SectionRodas() {
                 <button
                   type="submit"
                   disabled={loadingEncerrar}
-                  className="flex-1 bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-800 transition font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  className="flex-1 bg-[#e91e63] text-white py-3 rounded-lg hover:bg-[#c2185b] transition font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                   {loadingEncerrar ? "Finalizando..." : "Finalizar Roda"}
                 </button>

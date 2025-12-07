@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 import { register } from "../services/auth";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 interface RegisterFormData {
   nome: string;
@@ -73,109 +74,84 @@ export default function page() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-screen bg-gray-100 font-poppins">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      <div className="flex flex-col mt-[7rem] items-center justify-center w-[90%] sm:w-[30%] bg-white rounded-2xl px-[2.7rem] py-[1.5rem]">
-        <h1 className="text-[32px] text-black/80 font-[600]">Cadastro</h1>
+      
+      <main className="flex-grow flex items-center justify-center py-12 px-4">
+        <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl px-8 py-10">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Junte-se a Nós!</h1>
+            <p className="text-gray-600 mt-2">Crie sua conta para participar</p>
+          </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center w-[100%] gap-y-[1rem] mt-[1rem]"
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4"
         >
           <div className="flex flex-col w-full relative">
             <input
               type="text"
               name="nome"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="Nome Completo"
               id="nome"
               required
             />
 
-            <label
-              className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="nome"
-            >
-              Nome Completo
-            </label>
-          </div>
+            </div>
 
           <div className="flex flex-col w-full relative">
             <input
               type="text"
               name="cpf"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="000.000.000-00"
               id="cpf"
               required
             />
 
-            <label
-              className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="cpf"
-            >
-              CPF
-            </label>
-          </div>
+            </div>
 
           <div className="flex flex-col w-full relative">
             <input
               type="email"
               name="email"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="E-mail"
               id="email"
               required
             />
 
-            <label
-              className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="email"
-            >
-              E-mail
-            </label>
-          </div>
+            </div>
 
           <div className="flex flex-col w-full relative">
             <input
               type="tel"
               name="telefone"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="(00) 00000-0000"
               id="telefone"
               required
             />
 
-            <label
-              className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="telefone"
-            >
-              Telefone
-            </label>
-          </div>
+            </div>
 
           <div className="flex flex-col w-full relative">
             <input
               type="text"
               name="profissao"
               onChange={handleChange}
-              className="border-[2px] text-black/80 peer border-gray-300 rounded-[4px] px-[0.8rem] h-[2.7rem] py-[0.4rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="Profissão"
               id="profissao"
               required
             />
 
-            <label
-              className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="profissao"
-            >
-              Profissão
-            </label>
-          </div>
+            </div>
 
           <div className="flex flex-col w-full relative">
             <select
@@ -184,7 +160,7 @@ export default function page() {
                 const estado = e.target.value;
                 setFormData({ ...formData, estado, municipio: "" }); // atualiza estado
               }}
-              className="border-[2px] border-gray-300 rounded-[4px] px-[0.8rem] pr-[2rem] h-[2.7rem] py-[0.4rem] w-full text-black/80 appearance-none focus:outline-none focus:border-blue-500"
+              className="border-2 border-gray-200 rounded-xl px-4 pr-8 h-12 w-full text-gray-800 appearance-none focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               id="estado"
               required
             >
@@ -214,7 +190,7 @@ export default function page() {
               onChange={(e) =>
                 setFormData({ ...formData, municipio: e.target.value })
               }
-              className="border-[2px] border-gray-300 rounded-[4px] px-[0.8rem] pr-[2rem] h-[2.7rem] py-[0.4rem] w-full text-black/80 appearance-none focus:outline-none focus:border-blue-500"
+              className="border-2 border-gray-200 rounded-xl px-4 pr-8 h-12 w-full text-gray-800 appearance-none focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
               disabled={!formData.estado}
               id="municipio"
               required
@@ -269,7 +245,7 @@ export default function page() {
               type={showPassword ? "text" : "password"}
               name="senha"
               onChange={handleChange}
-              className="border-[2px] peer text-black/80 border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="Senha"
               id="senha"
               minLength={6}
@@ -279,7 +255,7 @@ export default function page() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600"
+              className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-[#e91e63] transition-colors"
             >
               {showPassword ? (
                 <svg
@@ -324,20 +300,14 @@ export default function page() {
               )}
             </button>
 
-            <label
-              className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="senha"
-            >
-              Senha
-            </label>
-          </div>
+            </div>
 
           <div className="flex flex-col w-full relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
               name="confirmarSenha"
               onChange={handleChange}
-              className="border-[2px] peer text-black/80 border-gray-300 rounded-[4px] px-[0.8rem] py-[0.4rem] h-[2.7rem] w-full focus:outline-none focus:border-blue-500"
+              className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
               placeholder="Confirmar Senha"
               id="confirmarSenha"
               minLength={6}
@@ -347,7 +317,7 @@ export default function page() {
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600"
+              className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-[#e91e63] transition-colors"
             >
               {showConfirmPassword ? (
                 <svg
@@ -392,35 +362,32 @@ export default function page() {
               )}
             </button>
 
-            <label
-              className="absolute left-3 top-[-10px] px-1 bg-white text-blue-500 font-[600] text-sm opacity-0 peer-focus:opacity-100 transition"
-              htmlFor="confirmarSenha"
+            </div>
+
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-[#e91e63] hover:bg-[#c2185b] text-white py-3 h-12 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
             >
-              Confirmar Senha
-            </label>
-          </div>
+              Cadastre-se
+            </button>
+          </form>
 
-          {error && (
-            <p className="mt-[-0.5rem] text-red-600 text-[12px] font-[400] self-start tracking-[0.75px]">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 transition-all duration-[0.5s] w-full py-[0.545rem] h-[2.7rem] mt-[0.4rem] text-[14px] font-[600] tracking-[0.5px] rounded-[4px] text-white"
-          >
-            Cadastre-se
-          </button>
-        </form>
-
-        <p className="text-[12px] font-[400] mt-[0.7rem] tracking-[0.75px] text-[black]">
-          Já tem uma conta?{" "}
-          <Link href="/login" className="text-blue-500 hover:underline">
-            Entrar
-          </Link>
-        </p>
-      </div>
+          <p className="text-center text-gray-600 text-sm mt-6">
+            Já tem uma conta?{" "}
+            <Link href="/login" className="text-[#e91e63] font-semibold hover:underline">
+              Entrar
+            </Link>
+          </p>
+        </div>
+      </main>
+      
+      <Footer />
     </div>
   );
 }

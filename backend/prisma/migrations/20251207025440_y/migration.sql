@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "rodas" ALTER COLUMN "data" SET DATA TYPE TEXT,
+ALTER COLUMN "hora_inicio" SET DATA TYPE TEXT;

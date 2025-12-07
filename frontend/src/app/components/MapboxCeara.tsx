@@ -69,7 +69,7 @@ export default function MapboxCeara() {
       </div>
     `);
 
-          const marker = new mapboxgl.Marker({ color: "#10b981" })
+          const marker = new mapboxgl.Marker({ color: "#e91e63" })
             .setLngLat([roda.longitude, roda.latitude])
             .setPopup(popup) // <-- ESSENCIAL
             .addTo(map);
@@ -90,7 +90,7 @@ export default function MapboxCeara() {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e91e63] mx-auto mb-4"></div>
           <p className="text-lg">Carregando rodas...</p>
         </div>
       </div>

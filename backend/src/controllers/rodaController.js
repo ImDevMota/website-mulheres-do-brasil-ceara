@@ -13,7 +13,7 @@ export const verificarToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Adiciona o ID do usuário na requisição
-    req.usuarioId = decoded.id;
+    req.userId = decoded.id;
 
     next();
   } catch (error) {
@@ -24,6 +24,9 @@ export const verificarToken = (req, res, next) => {
 export const listarRodas = async (req, res) => {
   try {
     const rodas = await prisma.roda.findMany({
+      where: {
+        status: "ativa",
+      },
       orderBy: {
         data: "asc",
       },
@@ -48,34 +51,26 @@ export const listarRodas = async (req, res) => {
 
 export const listarRodasMultiplicador = async (req, res) => {
   try {
-    const usuarioId = req.userId; // ID extraído do token JWT
+    const usuarioId = Number(req.userId);
 
-    // ===== DEBUG - ADICIONE ISSO =====
-    console.log("=== DEBUG LISTAR RODAS ===");
-    console.log("Usuario ID do token:", usuarioId);
-    console.log("Tipo do usuarioId:", typeof usuarioId);
-    // =================================
+    if (isNaN(usuarioId)) {
+      return res.status(400).json({ message: "ID do usuário inválido." });
+    }
 
-    // Busca APENAS as rodas do usuário autenticado
     const rodas = await prisma.roda.findMany({
+      include: {
+        faixasEtarias: {
+          include: { faixaEtaria: true },
+        },
+      },
       where: {
-        multiplicadorId: usuarioId, // ⚠️ Verifique se o nome do campo está correto
+        multiplicadorId: usuarioId,
         status: "ativa",
       },
-      orderBy: {
-        data: "asc",
-      },
+      orderBy: { data: "asc" },
     });
 
-    // ===== DEBUG - ADICIONE ISSO =====
-    console.log("Rodas encontradas:", rodas.length);
-    console.log(
-      "Usuario IDs das rodas:",
-      rodas.map((r) => r.usuario_id)
-    );
-    // =================================
-
-    res.status(200).json(rodas);
+    return res.status(200).json(rodas);
   } catch (error) {
     console.error("Erro ao buscar rodas:", error);
     return res.status(500).json({ message: "Erro ao buscar rodas" });
@@ -84,100 +79,163 @@ export const listarRodasMultiplicador = async (req, res) => {
 
 export const listarRodasHistorico = async (req, res) => {
   try {
-    const usuarioId = req.userId; // ID extraído do token JWT
+    const usuarioId = Number(req.userId); // <-- CORRETO
 
-    // ===== DEBUG - ADICIONE ISSO =====
-    console.log("=== DEBUG LISTAR RODAS ===");
-    console.log("Usuario ID do token:", usuarioId);
-    console.log("Tipo do usuarioId:", typeof usuarioId);
-    // =================================
+    console.log("=== DEBUG HISTÓRICO ===");
+    console.log("usuarioId:", usuarioId);
 
-    // Busca APENAS as rodas do usuário autenticado
+    if (isNaN(usuarioId)) {
+      return res
+        .status(400)
+        .json({ message: "ID do usuário inválido no token" });
+    }
+
     const rodas = await prisma.roda.findMany({
       where: {
-        multiplicadorId: usuarioId, // ⚠️ Verifique se o nome do campo está correto
+        multiplicadorId: usuarioId,
         status: "finalizada",
       },
+      include: {
+        faixasEtarias: {
+          include: {
+            faixaEtaria: true,
+          },
+        },
+      },
       orderBy: {
-        data: "asc",
+        data: "desc",
       },
     });
 
-    // ===== DEBUG - ADICIONE ISSO =====
-    console.log("Rodas encontradas:", rodas.length);
-    console.log(
-      "Usuario IDs das rodas:",
-      rodas.map((r) => r.usuario_id)
-    );
-    // =================================
-
-    res.status(200).json(rodas);
+    return res.status(200).json(rodas);
   } catch (error) {
-    console.error("Erro ao buscar rodas:", error);
+    console.error("Erro ao buscar histórico:", error);
     return res.status(500).json({ message: "Erro ao buscar rodas" });
   }
 };
 
 export const encerrarRoda = async (req, res) => {
   try {
-    const usuarioId = req.usuarioId;
-    const { rodaId, fotoFrequencia, fotoRodaConversa, resumo } = req.body;
-
-    // ⚠️ DEBUG - Adicione para ver o que está chegando
+    const usuarioId = req.userId;
+    const { rodaId, fotoFrequencia, fotoRodaConversa, resumo, faixasEtarias } =
+      req.body;
     console.log("=== ENCERRAR RODA ===");
     console.log("Usuario ID:", usuarioId);
     console.log("Roda ID:", rodaId);
-    console.log("Tipo do rodaId:", typeof rodaId);
-    console.log("Resumo length:", resumo?.length);
-
-    // ⚠️ IMPORTANTE: Converte rodaId para Number
+    console.log("Faixas Etárias:", faixasEtarias);
     const rodaIdNumber = Number(rodaId);
-
     if (isNaN(rodaIdNumber)) {
       return res.status(400).json({ message: "ID da roda inválido" });
     }
-
-    // Verifica se a roda pertence ao usuário
+    if (!Array.isArray(faixasEtarias) || faixasEtarias.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Selecione pelo menos uma faixa etária" });
+    }
     const roda = await prisma.roda.findFirst({
-      where: {
-        id: rodaIdNumber, // ← Usa o número convertido
-        multiplicadorId: usuarioId, // ⚠️ IMPORTANTE: Use multiplicadorId em vez de usuario_id
-      },
+      where: { id: rodaIdNumber, multiplicadorId: usuarioId },
     });
-
     if (!roda) {
-      console.log(
-        "Roda não encontrada para usuário:",
-        usuarioId,
-        "rodaId:",
-        rodaIdNumber
-      );
+      console.log("Roda não encontrada");
       return res
         .status(403)
         .json({ message: "Você não tem permissão para encerrar esta roda" });
     }
-
-    // ⚠️ CRÍTICO: Use os nomes corretos dos campos do Prisma
-    const rodaEncerrada = await prisma.roda.update({
-      where: { id: rodaIdNumber },
-      data: {
-        status: "finalizada",
-        fotoFrequenciaUrl: fotoFrequencia, // ← Nome correto
-        fotoRodaUrl: fotoRodaConversa, // ← Nome correto
-        resumo: resumo,
-      },
+    const rodaEncerrada = await prisma.$transaction(async (tx) => {
+      const rodaAtualizada = await tx.roda.update({
+        where: { id: rodaIdNumber },
+        data: {
+          status: "finalizada",
+          fotoFrequenciaUrl: fotoFrequencia,
+          fotoRodaUrl: fotoRodaConversa,
+          resumo: resumo,
+        },
+      });
+      await tx.rodaFaixaEtaria.createMany({
+        data: faixasEtarias.map((faixaId) => ({
+          rodaId: rodaIdNumber,
+          faixaEtariaId: faixaId,
+        })),
+      });
+      return rodaAtualizada;
     });
-
     console.log("✅ Roda encerrada com sucesso:", rodaEncerrada.id);
-
     return res.json(rodaEncerrada);
   } catch (error) {
     console.error("❌ ERRO AO ENCERRAR RODA:", error);
     console.error("Mensagem:", error.message);
-    console.error("Stack:", error.stack);
+    return res
+      .status(500)
+      .json({ message: "Erro ao encerrar roda", error: error.message });
+  }
+};
+
+export const estatisticas = async (req, res) => {
+  try {
+    const usuarioId = req.userId; // ⚠️ CORRETO: use userId
+
+    console.log("=== BUSCANDO ESTATÍSTICAS ===");
+    console.log("Usuario ID:", usuarioId);
+
+    // Buscar rodas finalizadas do multiplicador
+    const rodas = await prisma.roda.findMany({
+      where: {
+        multiplicadorId: usuarioId,
+        status: "finalizada",
+      },
+      include: {
+        faixasEtarias: {
+          include: {
+            faixaEtaria: true,
+          },
+        },
+      },
+    });
+
+    console.log("Rodas encontradas:", rodas.length);
+
+    if (rodas.length > 0) {
+      console.log("Primeira roda:", {
+        id: rodas[0].id,
+        tema: rodas[0].tema,
+        status: rodas[0].status,
+        faixasEtarias: rodas[0].faixasEtarias,
+      });
+    }
+
+    // Processar dados por município
+    const municipios = {};
+    rodas.forEach((roda) => {
+      const municipio = roda.municipio || "Não informado";
+      municipios[municipio] = (municipios[municipio] || 0) + 1;
+    });
+
+    // Processar dados por faixa etária
+    const faixasEtarias = {};
+    rodas.forEach((roda) => {
+      roda.faixasEtarias.forEach((rel) => {
+        const nome = rel.faixaEtaria.nome;
+        faixasEtarias[nome] = (faixasEtarias[nome] || 0) + 1;
+      });
+    });
+
+    const resultado = {
+      totalRodas: rodas.length,
+      municipios,
+      faixasEtarias,
+      municipiosCount: Object.keys(municipios).length,
+      faixasEtariasCount: Object.keys(faixasEtarias).length,
+    };
+
+    console.log("Resultado:", resultado);
+
+    return res.json(resultado);
+  } catch (error) {
+    console.error("❌ Erro ao buscar estatísticas:", error);
+    console.error("Mensagem:", error.message);
     return res.status(500).json({
-      message: "Erro ao encerrar roda",
-      error: error.message, // ← Retorna a mensagem de erro para debug
+      message: "Erro ao buscar estatísticas",
+      error: error.message,
     });
   }
 };
@@ -199,7 +257,6 @@ export const criarRoda = async (req, res) => {
       longitude,
     } = req.body;
 
-    // Validação de campos obrigatórios
     if (
       !tema ||
       !data ||
@@ -208,7 +265,6 @@ export const criarRoda = async (req, res) => {
       !local ||
       !publico_alvo
     ) {
-      console.log("❌ Campos obrigatórios faltando");
       return res.status(400).json({
         error:
           "Campos obrigatórios: tema, data, hora_inicio, municipio, local, publico_alvo",
@@ -216,13 +272,11 @@ export const criarRoda = async (req, res) => {
     }
 
     if (!req.userId) {
-      console.log("❌ multiplicadorId não encontrado no token");
       return res.status(401).json({ error: "Usuário não autenticado" });
     }
 
     let coords = { latitude: null, longitude: null };
 
-    // Coordenadas padrão por município (centro da cidade)
     const coordenadasPadrao = {
       Fortaleza: { latitude: -3.7172, longitude: -38.5433 },
       Sobral: { latitude: -3.6861, longitude: -40.35 },
@@ -231,8 +285,6 @@ export const criarRoda = async (req, res) => {
     };
 
     if (!latitude || !longitude) {
-      console.log(`🔍 Buscando coordenadas para: ${local}, ${municipio}`);
-
       const geoData = await buscarCoordenadas(local, municipio);
 
       if (geoData) {
@@ -240,45 +292,44 @@ export const criarRoda = async (req, res) => {
           latitude: geoData.latitude,
           longitude: geoData.longitude,
         };
-        console.log(
-          `✅ Coordenadas encontradas via geocoding: ${geoData.display_name}`
-        );
       } else {
-        console.log(
-          "⚠️ Geocoding falhou, usando coordenadas padrão do município"
-        );
-
         coords = coordenadasPadrao[municipio] || {
           latitude: null,
           longitude: null,
         };
-
-        if (coords.latitude) {
-          console.log(
-            `✅ Usando coordenadas do centro de ${municipio}: [${coords.latitude}, ${coords.longitude}]`
-          );
-        } else {
-          console.log(`⚠️ Município "${municipio}" não tem coordenadas padrão`);
-        }
       }
     } else {
       coords = { latitude, longitude };
-      console.log(
-        `📍 Usando coordenadas fornecidas: [${latitude}, ${longitude}]`
-      );
     }
 
-    // Combinar data e hora
-    const dataHoraInicio = `${data}T${hora_inicio}:00`;
+    // ========== CORREÇÃO DE FUSO ==========
 
-    console.log("💾 Criando roda no banco...");
+    // A data está vindo como YYYY-MM-DD → criar sem UTC
+    const partesData = data.split("-");
+    const dataCorrigida = new Date(
+      partesData[0],
+      partesData[1] - 1,
+      partesData[2]
+    );
+
+    // A hora está vindo como HH:mm
+    const [h, m] = hora_inicio.split(":");
+    const horaCorrigida = new Date(
+      partesData[0],
+      partesData[1] - 1,
+      partesData[2],
+      Number(h),
+      Number(m)
+    );
+
+    // ========== FIM DA CORREÇÃO DE FUSO ==========
 
     const novaRoda = await prisma.roda.create({
       data: {
         multiplicadorId: req.userId,
         tema,
-        data: new Date(data),
-        hora_inicio: new Date(dataHoraInicio),
+        data: dataCorrigida,
+        hora_inicio: horaCorrigida,
         municipio,
         local,
         publico_alvo,
@@ -291,11 +342,7 @@ export const criarRoda = async (req, res) => {
       },
       include: {
         multiplicador: {
-          select: {
-            id: true,
-            nome: true,
-            email: true,
-          },
+          select: { id: true, nome: true, email: true },
         },
       },
     });
@@ -306,15 +353,13 @@ export const criarRoda = async (req, res) => {
     console.error("❌ Erro ao criar roda:", err);
 
     if (err.code === "P2002") {
-      return res.status(400).json({
-        error: "Já existe uma roda com esses dados",
-      });
+      return res
+        .status(400)
+        .json({ error: "Já existe uma roda com esses dados" });
     }
 
     if (err.code === "P2003") {
-      return res.status(400).json({
-        error: "Multiplicador não encontrado",
-      });
+      return res.status(400).json({ error: "Multiplicador não encontrado" });
     }
 
     res.status(400).json({

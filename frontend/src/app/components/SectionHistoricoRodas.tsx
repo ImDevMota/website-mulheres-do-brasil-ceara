@@ -20,6 +20,15 @@ interface RodaFinalizada {
   publico_alvo: string;
   status: string;
   resumo: string;
+
+  faixasEtarias: {
+    faixaEtaria: {
+      id: number;
+      nome: string;
+      descricao: string;
+    };
+  }[];
+
   fotoFrequenciaUrl: string;
   fotoRodaUrl: string;
   latitude?: number;
@@ -43,8 +52,16 @@ export default function SectionHistoricoRodas() {
     try {
       setLoading(true);
       setError(null);
+
       const dados = await listarRodasHistorico();
-      setRodas(dados);
+
+      // 🔥 Normaliza para garantir que sempre exista faixasEtarias
+      const rodasNormalizadas = dados.map((r: any) => ({
+        ...r,
+        faixasEtarias: r.faixasEtarias ?? [],
+      }));
+
+      setRodas(rodasNormalizadas);
     } catch (err) {
       setError("Erro ao carregar o histórico. Tente novamente.");
       console.error(err);
@@ -60,9 +77,12 @@ export default function SectionHistoricoRodas() {
   }
 
   function formatarHorario(horario: string): string {
+    // Converte o horário UTC para horário local
     if (horario.includes("T")) {
-      const horaCompleta = horario.split("T")[1];
-      return horaCompleta.substring(0, 5);
+      const dataHora = new Date(horario);
+      const horas = dataHora.getHours().toString().padStart(2, "0");
+      const minutos = dataHora.getMinutes().toString().padStart(2, "0");
+      return `${horas}:${minutos}`;
     }
     return horario.substring(0, 5);
   }
@@ -85,7 +105,7 @@ export default function SectionHistoricoRodas() {
             Histórico de Rodas
           </h2>
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e91e63]"></div>
           </div>
         </div>
       </section>
@@ -122,7 +142,7 @@ export default function SectionHistoricoRodas() {
           </h2>
           <button
             onClick={carregarRodas}
-            className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2"
+            className="bg-[#e91e63] text-white px-4 py-2 rounded-lg hover:bg-[#c2185b] transition flex items-center gap-2"
           >
             <svg
               className="w-4 h-4"
@@ -154,7 +174,7 @@ export default function SectionHistoricoRodas() {
                 key={roda.id}
                 className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full"
               >
-                <div className="bg-gray-700 p-4 min-h-[80px] flex items-center">
+                <div className="bg-[#e91e63] p-4 min-h-[80px] flex items-center">
                   <h3 className="text-xl font-bold text-white line-clamp-2">
                     {roda.tema}
                   </h3>
@@ -162,7 +182,7 @@ export default function SectionHistoricoRodas() {
 
                 <div className="p-6 space-y-4 flex-grow">
                   <div className="flex items-start gap-3">
-                    <Calendar className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <Calendar className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Data</p>
                       <p className="font-semibold text-gray-800">
@@ -172,7 +192,7 @@ export default function SectionHistoricoRodas() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <Clock className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Horário</p>
                       <p className="font-semibold text-gray-800">
@@ -182,7 +202,7 @@ export default function SectionHistoricoRodas() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <MapPin className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Local</p>
                       <p className="font-semibold text-gray-800 line-clamp-2">
@@ -193,7 +213,7 @@ export default function SectionHistoricoRodas() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                    <Users className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="text-sm text-gray-500">Público-alvo</p>
                       <p className="font-semibold text-gray-800 line-clamp-1">
@@ -202,9 +222,30 @@ export default function SectionHistoricoRodas() {
                     </div>
                   </div>
 
+                  <div className="flex items-start gap-3">
+                    <Users className="w-5 h-5 text-[#e91e63] mt-0.5" />
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">
+                        Faixas Etárias
+                      </p>
+
+                      {roda.faixasEtarias?.length > 0 ? (
+                        <p className="text-gray-800 font-semibold">
+                          {roda.faixasEtarias
+                            .map((f) => f.faixaEtaria.nome)
+                            .join(", ")}
+                        </p>
+                      ) : (
+                        <p className="text-gray-500 italic">
+                          Nenhuma registrada
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
                   {roda.resumo && (
                     <div className="flex items-start gap-3">
-                      <FileText className="w-5 h-5 text-blue-900 mt-0.5 flex-shrink-0" />
+                      <FileText className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
                       <div className="min-w-0">
                         <p className="text-sm text-gray-500">Resumo</p>
                         <p className="text-sm text-gray-700 line-clamp-3">
@@ -218,7 +259,7 @@ export default function SectionHistoricoRodas() {
                 <div className="px-6 pb-6 mt-auto">
                   <button
                     onClick={() => abrirDetalhes(roda)}
-                    className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-800 transition font-semibold"
+                    className="w-full bg-[#e91e63] text-white py-2 rounded-lg hover:bg-[#c2185b] transition font-semibold"
                   >
                     Ver Detalhes
                   </button>
@@ -229,30 +270,27 @@ export default function SectionHistoricoRodas() {
         )}
       </div>
 
-      {/* Modal de Detalhes */}
+      {/* MODAL */}
       {modalAberto && rodaSelecionada && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            {/* Header do Modal */}
-            <div className="sticky top-0 bg-blue-900 text-white p-6 flex justify-between items-center rounded-t-lg">
+            <div className="sticky top-0 bg-[#e91e63] text-white p-6 flex justify-between items-center rounded-t-lg">
               <div>
                 <h3 className="text-2xl font-bold">Detalhes da Roda</h3>
                 <p className="text-blue-100 mt-1">{rodaSelecionada.tema}</p>
               </div>
               <button
                 onClick={fecharModal}
-                className="text-white hover:bg-blue-800 p-2 rounded-lg transition"
+                className="text-white hover:bg-[#c2185b] p-2 rounded-lg transition"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Conteúdo do Modal */}
             <div className="p-6 space-y-6">
-              {/* Informações Básicas */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-blue-900 mt-0.5" />
+                  <Calendar className="w-5 h-5 text-[#e91e63] mt-0.5" />
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Data</p>
                     <p className="text-gray-800 font-semibold">
@@ -262,7 +300,7 @@ export default function SectionHistoricoRodas() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-blue-900 mt-0.5" />
+                  <Clock className="w-5 h-5 text-[#e91e63] mt-0.5" />
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Horário</p>
                     <p className="text-gray-800 font-semibold">
@@ -272,7 +310,7 @@ export default function SectionHistoricoRodas() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-blue-900 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-[#e91e63] mt-0.5" />
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Local</p>
                     <p className="text-gray-800 font-semibold">
@@ -285,7 +323,7 @@ export default function SectionHistoricoRodas() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Users className="w-5 h-5 text-blue-900 mt-0.5" />
+                  <Users className="w-5 h-5 text-[#e91e63] mt-0.5" />
                   <div>
                     <p className="text-sm text-gray-500 font-medium">
                       Público-alvo
@@ -295,13 +333,26 @@ export default function SectionHistoricoRodas() {
                     </p>
                   </div>
                 </div>
+
+                <div className="flex items-start gap-3">
+                  <Users className="w-5 h-5 text-[#e91e63] mt-0.5" />
+                  <div>
+                    <p className="text-sm text-gray-500 font-medium">
+                      Faixas Etárias
+                    </p>
+                    <p className="text-gray-800 font-semibold">
+                      {rodaSelecionada.faixasEtarias
+                        ?.map((f) => f.faixaEtaria.nome)
+                        .join(", ") || "—"}
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              {/* Resumo */}
               {rodaSelecionada.resumo && (
                 <div>
                   <div className="flex items-center gap-2 mb-3">
-                    <FileText className="w-5 h-5 text-blue-900" />
+                    <FileText className="w-5 h-5 text-[#e91e63]" />
                     <h4 className="text-lg font-bold text-gray-800">
                       Resumo da Roda
                     </h4>
@@ -314,10 +365,9 @@ export default function SectionHistoricoRodas() {
                 </div>
               )}
 
-              {/* Fotos */}
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <Image className="w-5 h-5 text-blue-900" />
+                  <Image className="w-5 h-5 text-[#e91e63]" />
                   <h4 className="text-lg font-bold text-gray-800">
                     Registros Fotográficos
                   </h4>
@@ -352,11 +402,10 @@ export default function SectionHistoricoRodas() {
                 </div>
               </div>
 
-              {/* Botão Fechar */}
               <div className="pt-4">
                 <button
                   onClick={fecharModal}
-                  className="w-full bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-800 transition font-semibold"
+                  className="w-full bg-[#e91e63] text-white py-3 rounded-lg hover:bg-[#c2185b] transition font-semibold"
                 >
                   Fechar
                 </button>
