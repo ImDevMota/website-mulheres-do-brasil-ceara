@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export async function buscarCoordenadas(
   endereco,
   municipio,
