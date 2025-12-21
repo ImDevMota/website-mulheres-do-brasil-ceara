@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Clock, MapPin, Users, Calendar, X } from "lucide-react";
 import { listarRodasMultiplicador, encerrarRoda } from "../services/rodas";
+import Carousel from "./Carousel";
 
 interface Roda {
   id: number;
@@ -62,9 +63,11 @@ export default function SectionRodas() {
   }
 
   function formatarData(data: string): string {
-    // Remove a parte da hora se existir (formato ISO: 2025-11-27T00:00:00.000Z)
-    const dataLimpa = data.split("T")[0];
-    const [ano, mes, dia] = dataLimpa.split("-");
+    if (!data) return "";
+    const dateObj = new Date(data);
+    const dia = String(dateObj.getUTCDate()).padStart(2, "0");
+    const mes = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
+    const ano = dateObj.getUTCFullYear();
     return `${dia}/${mes}/${ano}`;
   }
 
@@ -196,21 +199,6 @@ export default function SectionRodas() {
     }
   }
 
-  if (loading) {
-    return (
-      <section className="py-12 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-            Rodas Ativas
-          </h2>
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e91e63]"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   if (error) {
     return (
       <section className="py-12 px-4 bg-gray-50">
@@ -233,106 +221,75 @@ export default function SectionRodas() {
   }
 
   return (
-    <section className="py-12 px-4 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">Rodas Ativas</h2>
-          <button
-            onClick={carregarRodas}
-            className="bg-[#e91e63] text-white px-4 py-2 rounded-lg hover:bg-[#c2185b] transition flex items-center gap-2"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-            Atualizar
-          </button>
-        </div>
+    <>
+      <Carousel
+        title="Rodas Ativas"
+        items={rodas}
+        loading={loading}
+        onRefresh={carregarRodas}
+        emptyMessage="Você não possui rodas ativas no momento."
+        renderItem={(roda) => (
+          <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full">
+            <div className="bg-[#e91e63] p-4 min-h-[80px] flex items-center">
+              <h3 className="text-xl font-bold text-white line-clamp-2">
+                {roda.tema}
+              </h3>
+            </div>
 
-        {rodas.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <p className="text-gray-500 text-lg">
-              Você não possui rodas ativas no momento.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {rodas.map((roda) => (
-              <div
-                key={roda.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full"
-              >
-                <div className="bg-[#e91e63] p-4 min-h-[80px] flex items-center">
-                  <h3 className="text-xl font-bold text-white line-clamp-2">
-                    {roda.tema}
-                  </h3>
-                </div>
-
-                <div className="p-6 space-y-4 flex-grow">
-                  <div className="flex items-start gap-3">
-                    <Calendar className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Data</p>
-                      <p className="font-semibold text-gray-800">
-                        {formatarData(roda.data)}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Horário</p>
-                      <p className="font-semibold text-gray-800">
-                        {formatarHorario(roda.hora_inicio)}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Local</p>
-                      <p className="font-semibold text-gray-800 line-clamp-2">
-                        {roda.local}
-                      </p>
-                      <p className="text-sm text-gray-600">{roda.municipio}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Público-alvo</p>
-                      <p className="font-semibold text-gray-800 line-clamp-1">
-                        {roda.publico_alvo}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="px-6 pb-6 mt-auto">
-                  <button
-                    onClick={() => abrirModal(roda)}
-                    className="w-full bg-[#e91e63] text-white py-2 rounded-lg hover:bg-[#c2185b] transition font-semibold"
-                  >
-                    Finalizar Roda
-                  </button>
+            <div className="p-6 space-y-4 flex-grow">
+              <div className="flex items-start gap-3">
+                <Calendar className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Data</p>
+                  <p className="font-semibold text-gray-800">
+                    {formatarData(roda.data)}
+                  </p>
                 </div>
               </div>
-            ))}
+
+              <div className="flex items-start gap-3">
+                <Clock className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Horário</p>
+                  <p className="font-semibold text-gray-800">
+                    {formatarHorario(roda.hora_inicio)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Local</p>
+                  <p className="font-semibold text-gray-800 line-clamp-2">
+                    {roda.local}
+                  </p>
+                  <p className="text-sm text-gray-600">{roda.municipio}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Users className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Público-alvo</p>
+                  <p className="font-semibold text-gray-800 line-clamp-1">
+                    {roda.publico_alvo}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 pb-6 mt-auto">
+              <button
+                onClick={() => abrirModal(roda)}
+                className="w-full bg-[#e91e63] text-white py-2 rounded-lg hover:bg-[#c2185b] transition font-semibold"
+              >
+                Finalizar Roda
+              </button>
+            </div>
           </div>
         )}
-      </div>
+      />
 
       {/* Modal de Finalizar Roda */}
       {modalAberto && rodaSelecionada && (
@@ -462,6 +419,6 @@ export default function SectionRodas() {
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }

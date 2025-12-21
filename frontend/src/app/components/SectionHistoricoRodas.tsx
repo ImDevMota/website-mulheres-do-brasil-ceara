@@ -9,6 +9,7 @@ import {
   X,
 } from "lucide-react";
 import { listarRodasHistorico } from "../services/rodas";
+import Carousel from "./Carousel";
 
 interface RodaFinalizada {
   id: number;
@@ -43,6 +44,7 @@ export default function SectionHistoricoRodas() {
   const [rodaSelecionada, setRodaSelecionada] = useState<RodaFinalizada | null>(
     null
   );
+  const [imagemAmpliada, setImagemAmpliada] = useState<string | null>(null);
 
   useEffect(() => {
     carregarRodas();
@@ -71,8 +73,10 @@ export default function SectionHistoricoRodas() {
   }
 
   function formatarData(data: string): string {
-    const dataLimpa = data.split("T")[0];
-    const [ano, mes, dia] = dataLimpa.split("-");
+    const dateObj = new Date(data);
+    const dia = String(dateObj.getUTCDate()).padStart(2, "0");
+    const mes = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
+    const ano = dateObj.getUTCFullYear();
     return `${dia}/${mes}/${ano}`;
   }
 
@@ -97,21 +101,6 @@ export default function SectionHistoricoRodas() {
     setRodaSelecionada(null);
   }
 
-  if (loading) {
-    return (
-      <section className="py-12 px-4 ">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-            Histórico de Rodas
-          </h2>
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e91e63]"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   if (error) {
     return (
       <section className="py-12 px-4 ">
@@ -134,146 +123,114 @@ export default function SectionHistoricoRodas() {
   }
 
   return (
-    <section className="py-12 px-4 ">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">
-            Histórico de Rodas
-          </h2>
-          <button
-            onClick={carregarRodas}
-            className="bg-[#e91e63] text-white px-4 py-2 rounded-lg hover:bg-[#c2185b] transition flex items-center gap-2"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-            Atualizar
-          </button>
-        </div>
+    <>
+      <Carousel
+        title="Histórico de Rodas"
+        items={rodas}
+        loading={loading}
+        onRefresh={carregarRodas}
+        emptyMessage="Você ainda não finalizou nenhuma roda."
+        renderItem={(roda) => (
+          <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full">
+            <div className="bg-[#e91e63] p-4 min-h-[80px] flex items-center">
+              <h3 className="text-xl font-bold text-white line-clamp-2">
+                {roda.tema}
+              </h3>
+            </div>
 
-        {rodas.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <p className="text-gray-500 text-lg">
-              Você ainda não finalizou nenhuma roda.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {rodas.map((roda) => (
-              <div
-                key={roda.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full"
-              >
-                <div className="bg-[#e91e63] p-4 min-h-[80px] flex items-center">
-                  <h3 className="text-xl font-bold text-white line-clamp-2">
-                    {roda.tema}
-                  </h3>
-                </div>
-
-                <div className="p-6 space-y-4 flex-grow">
-                  <div className="flex items-start gap-3">
-                    <Calendar className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Data</p>
-                      <p className="font-semibold text-gray-800">
-                        {formatarData(roda.data)}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Horário</p>
-                      <p className="font-semibold text-gray-800">
-                        {formatarHorario(roda.hora_inicio)}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Local</p>
-                      <p className="font-semibold text-gray-800 line-clamp-2">
-                        {roda.local}
-                      </p>
-                      <p className="text-sm text-gray-600">{roda.municipio}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm text-gray-500">Público-alvo</p>
-                      <p className="font-semibold text-gray-800 line-clamp-1">
-                        {roda.publico_alvo}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Users className="w-5 h-5 text-[#e91e63] mt-0.5" />
-                    <div>
-                      <p className="text-sm text-gray-500 font-medium">
-                        Faixas Etárias
-                      </p>
-
-                      {roda.faixasEtarias?.length > 0 ? (
-                        <p className="text-gray-800 font-semibold">
-                          {roda.faixasEtarias
-                            .map((f) => f.faixaEtaria.nome)
-                            .join(", ")}
-                        </p>
-                      ) : (
-                        <p className="text-gray-500 italic">
-                          Nenhuma registrada
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {roda.resumo && (
-                    <div className="flex items-start gap-3">
-                      <FileText className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
-                      <div className="min-w-0">
-                        <p className="text-sm text-gray-500">Resumo</p>
-                        <p className="text-sm text-gray-700 line-clamp-3">
-                          {roda.resumo}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="px-6 pb-6 mt-auto">
-                  <button
-                    onClick={() => abrirDetalhes(roda)}
-                    className="w-full bg-[#e91e63] text-white py-2 rounded-lg hover:bg-[#c2185b] transition font-semibold"
-                  >
-                    Ver Detalhes
-                  </button>
+            <div className="p-6 space-y-4 flex-grow">
+              <div className="flex items-start gap-3">
+                <Calendar className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Data</p>
+                  <p className="font-semibold text-gray-800">
+                    {formatarData(roda.data)}
+                  </p>
                 </div>
               </div>
-            ))}
+
+              <div className="flex items-start gap-3">
+                <Clock className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Horário</p>
+                  <p className="font-semibold text-gray-800">
+                    {formatarHorario(roda.hora_inicio)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Local</p>
+                  <p className="font-semibold text-gray-800 line-clamp-2">
+                    {roda.local}
+                  </p>
+                  <p className="text-sm text-gray-600">{roda.municipio}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Users className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm text-gray-500">Público-alvo</p>
+                  <p className="font-semibold text-gray-800 line-clamp-1">
+                    {roda.publico_alvo}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Users className="w-5 h-5 text-[#e91e63] mt-0.5" />
+                <div>
+                  <p className="text-sm text-gray-500 font-medium">
+                    Faixas Etárias
+                  </p>
+
+                  {roda.faixasEtarias?.length > 0 ? (
+                    <p className="text-gray-800 font-semibold">
+                      {roda.faixasEtarias
+                        .map((f) => f.faixaEtaria.nome)
+                        .join(", ")}
+                    </p>
+                  ) : (
+                    <p className="text-gray-500 italic">Nenhuma registrada</p>
+                  )}
+                </div>
+              </div>
+
+              {roda.resumo && (
+                <div className="flex items-start gap-3">
+                  <FileText className="w-5 h-5 text-[#e91e63] mt-0.5 flex-shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-sm text-gray-500">Resumo</p>
+                    <p className="text-sm text-gray-700 line-clamp-3">
+                      {roda.resumo}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="px-6 pb-6 mt-auto">
+              <button
+                onClick={() => abrirDetalhes(roda)}
+                className="w-full bg-[#e91e63] text-white py-2 rounded-lg hover:bg-[#c2185b] transition font-semibold"
+              >
+                Ver Detalhes
+              </button>
+            </div>
           </div>
         )}
-      </div>
+      />
 
       {/* MODAL */}
       {modalAberto && rodaSelecionada && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div
+            className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto scrollbar-hide"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             <div className="sticky top-0 bg-[#e91e63] text-white p-6 flex justify-between items-center rounded-t-lg">
               <div>
                 <h3 className="text-2xl font-bold">Detalhes da Roda</h3>
@@ -382,7 +339,10 @@ export default function SectionHistoricoRodas() {
                       <img
                         src={rodaSelecionada.fotoFrequenciaUrl}
                         alt="Foto da Frequência"
-                        className="w-full h-64 object-cover rounded-lg shadow-md hover:shadow-xl transition"
+                        className="w-full h-64 object-cover rounded-lg shadow-md hover:shadow-xl transition cursor-pointer hover:opacity-90"
+                        onClick={() =>
+                          setImagemAmpliada(rodaSelecionada.fotoFrequenciaUrl)
+                        }
                       />
                     </div>
                   )}
@@ -395,7 +355,10 @@ export default function SectionHistoricoRodas() {
                       <img
                         src={rodaSelecionada.fotoRodaUrl}
                         alt="Foto da Roda de Conversa"
-                        className="w-full h-64 object-cover rounded-lg shadow-md hover:shadow-xl transition"
+                        className="w-full h-64 object-cover rounded-lg shadow-md hover:shadow-xl transition cursor-pointer hover:opacity-90"
+                        onClick={() =>
+                          setImagemAmpliada(rodaSelecionada.fotoRodaUrl)
+                        }
                       />
                     </div>
                   )}
@@ -414,6 +377,27 @@ export default function SectionHistoricoRodas() {
           </div>
         </div>
       )}
-    </section>
+
+      {/* LIGHTBOX - Modal de Imagem Ampliada */}
+      {imagemAmpliada && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[60] p-4"
+          onClick={() => setImagemAmpliada(null)}
+        >
+          <button
+            onClick={() => setImagemAmpliada(null)}
+            className="absolute top-4 right-4 text-white hover:bg-white/20 p-2 rounded-lg transition"
+          >
+            <X className="w-8 h-8" />
+          </button>
+          <img
+            src={imagemAmpliada}
+            alt="Imagem ampliada"
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
   );
 }

@@ -29,3 +29,28 @@ export const login = async (req, res) => {
     user: userWithoutPassword,
   });
 };
+
+export const getMe = async (req, res) => {
+  try {
+    const user = await prisma.multiplicador.findUnique({
+      where: { id: req.userId },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        cpf: true,
+        municipio: true,
+        profissao: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error("Erro ao buscar perfil:", error);
+    res.status(500).json({ message: "Erro ao buscar dados do usuário" });
+  }
+};

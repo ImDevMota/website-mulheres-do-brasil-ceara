@@ -65,7 +65,13 @@ export default function MapboxCeara() {
         Local: ${roda.local}<br/>
         Município: ${roda.municipio}<br/>
         Responsável: ${roda.multiplicador?.nome || "Não informado"}<br/>
-        Data: ${new Date(roda.data).toLocaleDateString("pt-BR")}
+        Data: ${(() => {
+          const d = new Date(roda.data);
+          const dia = String(d.getUTCDate()).padStart(2, "0");
+          const mes = String(d.getUTCMonth() + 1).padStart(2, "0");
+          const ano = d.getUTCFullYear();
+          return `${dia}/${mes}/${ano}`;
+        })()}
       </div>
     `);
 
@@ -98,11 +104,11 @@ export default function MapboxCeara() {
   }
 
   return (
-    <div className="flex flex-col items-center my-6 gap-4">
+    <div className="w-full flex justify-center my-6">
       <div
         ref={mapContainer}
-        className="rounded-lg shadow-lg relative"
-        style={{ width: "70%", height: "70vh" }}
+        className="rounded-lg shadow-lg relative w-full"
+        style={{ height: "70vh" }}
       />
     </div>
   );

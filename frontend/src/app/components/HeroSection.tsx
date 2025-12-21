@@ -13,7 +13,7 @@ export default function HeroSection({ totalMulheres = 0 }: HeroSectionProps) {
   // Animação de contagem
   useEffect(() => {
     if (totalMulheres === 0) return;
-    
+
     const duration = 2000; // 2 segundos
     const steps = 60;
     const increment = totalMulheres / steps;
@@ -36,7 +36,7 @@ export default function HeroSection({ totalMulheres = 0 }: HeroSectionProps) {
     <section className="relative overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#e91e63] via-[#c2185b] to-[#880e4f]" />
-      
+
       {/* Decorative Elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl" />
@@ -55,7 +55,7 @@ export default function HeroSection({ totalMulheres = 0 }: HeroSectionProps) {
               </span>
             </div>
           )}
-          
+
           {/* Title */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Mulheres do Brasil
@@ -81,14 +81,14 @@ export default function HeroSection({ totalMulheres = 0 }: HeroSectionProps) {
               href="/dashboard"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transition-all"
             >
-              Ver Rodas de Conversa
+              Ver Suas Rodas de Conversa
             </Link>
           </div>
         </div>
       </div>
 
       {/* Wave Bottom */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute -bottom-1 left-0 right-0">
         <svg
           viewBox="0 0 1440 100"
           fill="none"

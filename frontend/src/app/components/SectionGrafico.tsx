@@ -14,7 +14,15 @@ interface Estatisticas {
   faixasEtariasCount: number;
 }
 
-export default function SectionGrafico() {
+interface SectionGraficoProps {
+  userName?: string;
+  onNewRodaClick?: () => void;
+}
+
+export default function SectionGrafico({
+  userName,
+  onNewRodaClick,
+}: SectionGraficoProps) {
   const [estatisticas, setEstatisticas] = useState<Estatisticas | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,39 +35,17 @@ export default function SectionGrafico() {
     try {
       setLoading(true);
       setError(null);
-
-      console.log("📊 Carregando estatísticas...");
-
       const response = await obterEstatisticas();
-
-      console.log("=== DEBUG: RESPOSTA COMPLETA ===");
-      console.log("response:", response);
-      console.log("response.data:", response?.data);
-      console.log("response.data?.data:", response?.data?.data);
-
-      // ✅ CORRIGIDO: A resposta pode ser response ou response.data
       const dados = response?.data?.data || response?.data || response;
 
-      console.log("Dados extraídos:", dados);
-      console.log("totalRodas:", dados?.totalRodas);
-      console.log("municipios:", dados?.municipios);
-      console.log("faixasEtarias:", dados?.faixasEtarias);
-
-      // Validar se os dados têm a estrutura esperada
       if (!dados || typeof dados !== "object") {
         throw new Error("Formato de resposta inválido");
       }
 
       setEstatisticas(dados as Estatisticas);
-
-      console.log("✅ Estado atualizado com sucesso");
     } catch (err) {
-      console.error("❌ Erro completo:", err);
-      if (err instanceof Error) {
-        console.error("Mensagem:", err.message);
-        console.error("Stack:", err.stack);
-      }
-      setError("Erro ao carregar dados do dashboard. Tente novamente.");
+      console.error("Erro ao carregar dados:", err);
+      setError("Erro ao carregar dados do dashboard.");
     } finally {
       setLoading(false);
     }
@@ -69,8 +55,14 @@ export default function SectionGrafico() {
   if (loading) {
     return (
       <section className="py-12 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h2>
+          {userName && (
+            <p className="text-xl text-gray-600 mb-6">
+              Bem vindo,{" "}
+              <span className="font-semibold text-[#e91e63]">{userName}</span>
+            </p>
+          )}
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e91e63]"></div>
           </div>
@@ -83,8 +75,14 @@ export default function SectionGrafico() {
   if (error) {
     return (
       <section className="py-12 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h2>
+          {userName && (
+            <p className="text-xl text-gray-600 mb-6">
+              Bem vindo,{" "}
+              <span className="font-semibold text-[#e91e63]">{userName}</span>
+            </p>
+          )}
           <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
             <p className="text-red-600 mb-4">{error}</p>
             <button
@@ -101,37 +99,7 @@ export default function SectionGrafico() {
 
   // Estado nulo
   if (!estatisticas) {
-    return (
-      <section className="py-12 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h2>
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-            <p className="text-yellow-600">
-              Estatísticas não carregadas. Verifique o console.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Estado vazio
-  if (estatisticas.totalRodas === 0) {
-    return (
-      <section className="py-12 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h2>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <p className="text-blue-600 mb-4">
-              ℹ️ Nenhuma roda finalizada ainda.
-            </p>
-            <p className="text-blue-500 text-sm">
-              Finalize sua primeira roda para ver as estatísticas aqui.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
+    return null;
   }
 
   // Verificar dados
@@ -212,33 +180,52 @@ export default function SectionGrafico() {
 
   return (
     <section className="py-12 px-4 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h2 className="text-3xl font-bold text-gray-800">Dashboard</h2>
-            <p className="text-gray-600 mt-1">
-              Visão geral das suas rodas de conversa
-            </p>
+            {userName ? (
+              <p className="text-xl text-gray-600 mt-1">
+                Bem vindo,{" "}
+                <span className="font-semibold text-[#e91e63]">{userName}</span>
+              </p>
+            ) : (
+              <p className="text-gray-600 mt-1">
+                Visão geral das suas rodas de conversa
+              </p>
+            )}
           </div>
-          <button
-            onClick={carregarDados}
-            className="bg-[#e91e63] text-white px-4 py-2 rounded-lg hover:bg-[#c2185b] transition flex items-center gap-2"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+
+          <div className="flex items-stretch gap-3">
+            {onNewRodaClick && (
+              <button
+                onClick={onNewRodaClick}
+                className="bg-[#e91e63] text-white px-5 py-2.5 rounded-lg hover:bg-[#c2185b] transition shadow-md hover:shadow-lg font-semibold flex items-center gap-2"
+              >
+                <span>+</span> Nova Roda de Conversas
+              </button>
+            )}
+
+            <button
+              onClick={carregarDados}
+              className="bg-white border border-gray-200 text-gray-600 px-4 py-2.5 rounded-lg hover:bg-gray-50 transition flex items-center gap-2 shadow-sm"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-            Atualizar
-          </button>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+              Atualizar
+            </button>
+          </div>
         </div>
 
         {/* Cards */}

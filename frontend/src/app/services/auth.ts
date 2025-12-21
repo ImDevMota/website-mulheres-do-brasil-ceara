@@ -40,3 +40,11 @@ export async function login(cpf: string, senha: string) {
   localStorage.setItem("token", response.data.token);
   return response.data;
 }
+
+export async function getUserProfile() {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+
+  const response = await api.get("/auth/me");
+  return response.data;
+}

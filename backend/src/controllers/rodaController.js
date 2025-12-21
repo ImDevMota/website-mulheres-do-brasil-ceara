@@ -282,6 +282,16 @@ export const criarRoda = async (req, res) => {
       Sobral: { latitude: -3.6861, longitude: -40.35 },
       "Juazeiro do Norte": { latitude: -7.2131, longitude: -39.3151 },
       Acaraú: { latitude: -2.8858, longitude: -40.12 },
+      Aracati: { latitude: -4.56167, longitude: -37.7697 },
+      Itapipoca: { latitude: -3.4944, longitude: -39.5789 },
+      Quixadá: { latitude: -4.9708, longitude: -39.015 },
+      Iguatu: { latitude: -6.35917, longitude: -39.29889 },
+      Crateús: { latitude: -5.17833, longitude: -40.6775 },
+      Tianguá: { latitude: -3.73167, longitude: -40.9917 },
+      Tauá: { latitude: -6.00389, longitude: -40.2925 },
+      "Limoeiro do Norte": { latitude: -5.14583, longitude: -38.0981 },
+      Canindé: { latitude: -4.35917, longitude: -39.3131 },
+      Camocim: { latitude: -2.9022, longitude: -40.8411 },
     };
 
     if (!latitude || !longitude) {
@@ -293,10 +303,21 @@ export const criarRoda = async (req, res) => {
           longitude: geoData.longitude,
         };
       } else {
-        coords = coordenadasPadrao[municipio] || {
-          latitude: null,
-          longitude: null,
-        };
+        const baseCoords = coordenadasPadrao[municipio];
+        if (baseCoords) {
+          // Adiciona um pequeno "jitter" (variação) para evitar sobreposição exata
+          // 0.005 graus é aproximadamente 500m
+          const jitter = () => (Math.random() - 0.5) * 0.005;
+          coords = {
+            latitude: baseCoords.latitude + jitter(),
+            longitude: baseCoords.longitude + jitter(),
+          };
+        } else {
+          coords = {
+            latitude: null,
+            longitude: null,
+          };
+        }
       }
     } else {
       coords = { latitude, longitude };
