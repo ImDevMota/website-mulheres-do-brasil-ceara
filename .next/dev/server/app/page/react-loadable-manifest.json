@@ -1,1 +1,13 @@
-{}
+{
+  "[project]/src/app/components/MapboxCeara.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/app/components/MapboxCeara.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_mapbox-gl_dist_mapbox-gl_fdd3d13f.js",
+      "static/chunks/node_modules_axios_lib_99e19c7d._.js",
+      "static/chunks/node_modules_mapbox-gl_dist_mapbox-gl_b0bb8555.js",
+      "static/chunks/node_modules_next_dist_compiled_buffer_index_9b11b835.js",
+      "static/chunks/src_app_0c3dc84a._.js",
+      "static/chunks/src_app_components_MapboxCeara_tsx_52efbd05._.js"
+    ]
+  }
+}

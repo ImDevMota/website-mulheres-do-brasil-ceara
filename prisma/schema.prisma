@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Multiplicador {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  cpf       String   @unique
+  email     String   @unique
+  senha     String
+  estado    String
+  municipio String
+  telefone  String
+  profissao String
+  criadoEm  DateTime @default(now())
+  rodas     Roda[]
+  
+  @@map("multiplicadores")
+}
+
+model Roda {
+  id                  Int           @id @default(autoincrement())
+  multiplicadorId     Int
+  tema                String
+  data                DateTime @db.Date
+  hora_inicio         DateTime @db.Time(0)
+  municipio           String
+  local               String
+  publico_alvo        String
+  latitude            Float?
+  longitude           Float?
+  numeroParticipantes Int?
+  fotoFrequenciaUrl   String?
+  fotoRodaUrl         String?
+  status              String        @default("ativa")
+  resumo              String?
+  criadoEm            DateTime      @default(now())
+  multiplicador       Multiplicador @relation(fields: [multiplicadorId], references: [id], onDelete: Cascade)
+  faixasEtarias   RodaFaixaEtaria[]
+  @@map("rodas")
+}
+
+model FaixaEtaria {
+  id              Int                   @id @default(autoincrement())
+  nome            String                @db.VarChar(50)
+  descricao       String?               @db.VarChar(100)
+  ordem           Int
+  criadoEm        DateTime              @default(now()) @map("criado_em")
+  rodas           RodaFaixaEtaria[]
+
+  @@map("faixas_etarias")
+}
+
+model RodaFaixaEtaria {
+  id              Int           @id @default(autoincrement())
+  rodaId          Int           @map("roda_id")
+  faixaEtariaId   Int           @map("faixa_etaria_id")
+  criadoEm        DateTime      @default(now()) @map("criado_em")
+  
+  roda            Roda          @relation(fields: [rodaId], references: [id], onDelete: Cascade)
+  faixaEtaria     FaixaEtaria   @relation(fields: [faixaEtariaId], references: [id], onDelete: Cascade)
+
+  @@unique([rodaId, faixaEtariaId], name: "unique_roda_faixa")
+  @@map("rodas_faixas_etarias")
+}
