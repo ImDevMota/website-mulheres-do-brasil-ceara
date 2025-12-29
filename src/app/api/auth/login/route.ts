@@ -15,7 +15,10 @@ export async function POST(request: Request) {
 
     if (!usuario) {
       return NextResponse.json(
-        { error: "Credenciais inválidas" },
+        {
+          error: "CPF_NAO_REGISTRADO",
+          message: "CPF não cadastrado no sistema",
+        },
         { status: 401 }
       );
     }
@@ -24,7 +27,10 @@ export async function POST(request: Request) {
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
     if (!senhaValida) {
       return NextResponse.json(
-        { error: "Credenciais inválidas" },
+        {
+          error: "SENHA_INCORRETA",
+          message: "Senha incorreta",
+        },
         { status: 401 }
       );
     }

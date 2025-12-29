@@ -1,10 +1,12 @@
 {
+  "/api/auth/login/route": "app/api/auth/login/route.js",
   "/api/auth/me/route": "app/api/auth/me/route.js",
-  "/api/rodas/[id]/encerrar/route": "app/api/rodas/[id]/encerrar/route.js",
   "/api/rodas/estatisticas/route": "app/api/rodas/estatisticas/route.js",
   "/api/rodas/historico/route": "app/api/rodas/historico/route.js",
   "/api/rodas/me/route": "app/api/rodas/me/route.js",
   "/api/rodas/route": "app/api/rodas/route.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/page": "app/page.js"
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js"
 }

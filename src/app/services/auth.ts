@@ -1,16 +1,5 @@
 import api from "./api";
 
-interface RegisterData {
-  nome: string;
-  cpf: string;
-  email: string;
-  estado: string;
-  municipio: string;
-  profissao: string;
-  telefone: string;
-  senha: string;
-}
-
 export async function register(
   nome: string,
   cpf: string,

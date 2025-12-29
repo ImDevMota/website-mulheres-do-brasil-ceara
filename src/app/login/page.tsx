@@ -20,13 +20,37 @@ export default function Login() {
     senha: "",
   });
 
-  const router = useRouter();
-
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [errorType, setErrorType] = useState<"CPF" | "SENHA" | "">("");
+
+  const [cpfError, setCpfError] = useState("");
+
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleCPFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let valor = event.target.value.replace(/\D/g, "");
+
+    if (valor.length <= 11) {
+      valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+      valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+      valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    } else {
+      valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+      valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+      valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+      setCpfError("Insira um CPF válido!");
+
+      return;
+    }
+
+    setCpfError("");
+    setFormData({ ...formData, cpf: valor });
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -45,28 +69,53 @@ export default function Login() {
       toast.success("Login realizado com sucesso!");
 
       router.push("/dashboard");
-    } catch (err) {
-      toast.error("Senha ou E-mail Incorretos");
-      setError("E-mail ou Senha incorretos");
-      return;
+    } catch (err: any) {
+      const status = err.response?.status;
+      const errorData = err.response?.data;
+      const errorCode = errorData?.error || "";
+      const errorMessage = errorData?.message || err.message || "";
+
+      console.log("Erro capturado:", { status, errorCode, errorMessage });
+
+      // 404 = CPF não encontrado
+      if (status === 404 || errorCode === "CPF_NAO_REGISTRADO") {
+        setErrorType("CPF");
+        setError("Este CPF não está cadastrado no sistema");
+        toast.error("CPF não cadastrado");
+      }
+      // 401 = Senha incorreta
+      else if (status === 401 || errorCode === "SENHA_INCORRETA") {
+        setErrorType("SENHA");
+        setError("A senha informada está incorreta");
+        toast.error("Senha incorreta");
+      }
+      // 400 = Campos obrigatórios
+      else if (status === 400 || errorCode === "CAMPOS_OBRIGATORIOS") {
+        setError("Preencha todos os campos corretamente");
+        toast.error("Preencha todos os campos");
+      }
+      // Outros erros
+      else {
+        setError(errorMessage || "Erro ao realizar login. Tente novamente");
+        toast.error("Erro ao realizar login");
+      }
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      
+
       <main className="flex-grow flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl px-8 py-10">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Bem-vinda de volta!</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Bem-vinda de volta!
+            </h1>
             <p className="text-gray-600 mt-2">Entre para acessar sua conta</p>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-5"
-          >
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="flex flex-col w-full relative">
               <label
                 className="text-sm font-semibold text-gray-700 mb-2"
@@ -77,12 +126,14 @@ export default function Login() {
               <input
                 type="text"
                 name="cpf"
-                onChange={handleChange}
+                value={formData.cpf}
+                onChange={handleCPFChange}
                 className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] transition-all"
                 placeholder="000.000.000-00"
                 id="cpf"
                 required
               />
+              <p className="text-red-500 text-sm mt-1">{cpfError}</p>
             </div>
 
             <div className="flex flex-col w-full relative">
@@ -170,15 +221,17 @@ export default function Login() {
 
           <p className="text-center text-gray-600 text-sm mt-6">
             Novo usuário?{" "}
-            <Link href={"/register"} className="text-[#e91e63] font-semibold hover:underline">
+            <Link
+              href={"/register"}
+              className="text-[#e91e63] font-semibold hover:underline"
+            >
               Cadastre-se
             </Link>
           </p>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
 }
-

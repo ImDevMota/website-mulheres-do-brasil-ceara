@@ -1,5 +1,83 @@
-[00:00:01.547] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.710] Server  LOG      ✓ Ready in 1368ms
-[00:00:08.565] Server  LOG      ○ Compiling /dashboard ...
-[00:00:11.139] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:36.916] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.401] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.774] Server  LOG      ✓ Ready in 2.4s
+[00:00:16.388] Server  LOG      ○ Compiling / ...
+[00:00:49.344] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:38.250] Server  LOG      ✓ Compiled in 632ms
+[00:11:38.629] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:11:41.665] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:11.478] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:16:11.488] Server  LOG      ✓ Compiled in 161ms
+[00:16:12.101] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:13.628] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:16:13.696] Server  LOG      ✓ Compiled in 38ms
+[00:16:14.075] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:47.686] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:16:47.705] Server  LOG      ✓ Compiled in 228ms
+[00:16:48.610] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:03.334] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:03.364] Server  LOG      ✓ Compiled in 202ms
+[00:17:04.050] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:21.239] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:21.255] Server  LOG      ✓ Compiled in 77ms
+[00:17:21.954] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:29.758] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:29.849] Server  LOG      ✓ Compiled in 111ms
+[00:17:30.336] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:33.081] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:33.183] Server  LOG      ✓ Compiled in 48ms
+[00:17:33.810] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:52.722] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:52.743] Server  LOG      ✓ Compiled in 67ms
+[00:17:53.731] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:11.163] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:18:11.386] Server  LOG      ✓ Compiled in 88ms
+[00:18:12.198] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:17.963] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:18:18.000] Server  LOG      ✓ Compiled in 123ms
+[00:18:19.037] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:55.604] Server  LOG      ✓ Compiled in 465ms
+[00:19:55.817] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:19:57.034] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:59.546] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:19:59.548] Server  LOG      ✓ Compiled in 231ms
+[00:20:01.343] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:04.577] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:20:04.579] Server  LOG      ✓ Compiled in 128ms
+[00:20:05.634] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:29.416] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:20:29.427] Server  LOG      ✓ Compiled in 213ms
+[00:20:30.766] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:54.969] Server  LOG      ✓ Compiled in 371ms
+[00:20:55.010] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:20:56.468] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:31.982] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:21:31.984] Server  LOG      ✓ Compiled in 212ms
+[00:21:34.203] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:45.541] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:21:45.543] Server  LOG      ✓ Compiled in 371ms
+[00:21:46.676] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:23:01.198] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:23:01.216] Server  LOG      ✓ Compiled in 123ms
+[00:23:02.273] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:23:33.438] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:23:33.457] Server  LOG      ✓ Compiled in 99ms
+[00:23:34.467] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:29.200] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:24:29.209] Server  LOG      ✓ Compiled in 122ms
+[00:24:30.001] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:37.962] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:24:37.988] Server  LOG      ✓ Compiled in 54ms
+[00:24:38.793] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:25:09.049] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:28:16.426] Server  LOG      ✓ Compiled in 126ms
+[00:30:31.012] Server  LOG      ✓ Compiled in 75ms
+[00:30:59.226] Server  LOG      ✓ Compiled in 47ms
+[00:31:39.254] Server  LOG      ✓ Compiled in 73ms
+[00:31:55.946] Server  LOG      ✓ Compiled in 60ms
+[00:35:52.225] Server  LOG      ✓ Compiled in 105ms
+[00:35:59.621] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:44:44.276] Server  LOG      ✓ Compiled in 289ms
+[00:45:44.220] Server  LOG      ✓ Compiled in 245ms
+[00:49:54.665] Server  LOG      ✓ Compiled in 199ms
+[00:53:19.962] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
+[00:53:31.197] Browser LOG     Erro capturado: {"errorCode":"CPF_NAO_REGISTRADO","errorMessage":"CPF não cadastrado no sistema","status":401}
