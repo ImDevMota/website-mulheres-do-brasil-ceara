@@ -5,6 +5,7 @@
   "/api/rodas/historico/route": "app/api/rodas/historico/route.js",
   "/api/rodas/me/route": "app/api/rodas/me/route.js",
   "/api/rodas/route": "app/api/rodas/route.js",
+  "/api/user/route": "app/api/user/route.js",
   "/dashboard/page": "app/dashboard/page.js",
   "/login/page": "app/login/page.js",
   "/page": "app/page.js",

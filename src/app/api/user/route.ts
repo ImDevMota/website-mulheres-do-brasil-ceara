@@ -5,8 +5,17 @@ import jwt from "jsonwebtoken";
 
 export async function POST(request: Request) {
   try {
-    const { nome, cpf, email, estado, municipio, profissao, telefone, senha } =
-      await request.json();
+    const {
+      nome,
+      genero,
+      cpf,
+      email,
+      estado,
+      municipio,
+      profissao,
+      telefone,
+      senha,
+    } = await request.json();
 
     // 1. Buscar usuário pelo CPF
     const usuario = await prisma.multiplicador.findUnique({
@@ -22,6 +31,7 @@ export async function POST(request: Request) {
     const multiplicador = await prisma.multiplicador.create({
       data: {
         nome,
+        genero,
         cpf,
         email,
         estado,

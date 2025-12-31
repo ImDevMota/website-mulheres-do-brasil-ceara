@@ -16,11 +16,13 @@ interface Estatisticas {
 
 interface SectionGraficoProps {
   userName?: string;
+  genero?: string;
   onNewRodaClick?: () => void;
 }
 
 export default function SectionGrafico({
   userName,
+  genero,
   onNewRodaClick,
 }: SectionGraficoProps) {
   const [estatisticas, setEstatisticas] = useState<Estatisticas | null>(null);
@@ -57,9 +59,15 @@ export default function SectionGrafico({
       <section className="py-12 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h2>
-          {userName && (
+          {userName && genero == "Masculino" && (
             <p className="text-xl text-gray-600 mb-6">
               Bem vindo,{" "}
+              <span className="font-semibold text-[#e91e63]">{userName}</span>
+            </p>
+          )}
+          {userName && genero == "Feminino" && (
+            <p className="text-xl text-gray-600 mb-6">
+              Bem vinda,{" "}
               <span className="font-semibold text-[#e91e63]">{userName}</span>
             </p>
           )}
@@ -185,10 +193,21 @@ export default function SectionGrafico({
           <div>
             <h2 className="text-3xl font-bold text-gray-800">Dashboard</h2>
             {userName ? (
-              <p className="text-xl text-gray-600 mt-1">
-                Bem vindo,{" "}
-                <span className="font-semibold text-[#e91e63]">{userName}</span>
-              </p>
+              genero === "Feminino" ? (
+                <p className="text-xl text-gray-600 mt-1">
+                  Bem vinda,{" "}
+                  <span className="font-semibold text-[#e91e63]">
+                    {userName}
+                  </span>
+                </p>
+              ) : (
+                <p className="text-xl text-gray-600 mt-1">
+                  Bem vindo,{" "}
+                  <span className="font-semibold text-[#e91e63]">
+                    {userName}
+                  </span>
+                </p>
+              )
             ) : (
               <p className="text-gray-600 mt-1">
                 Visão geral das suas rodas de conversa

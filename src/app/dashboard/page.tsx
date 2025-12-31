@@ -14,7 +14,9 @@ import SectionGrafico from "../components/SectionGrafico";
 
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [user, setUser] = useState<{ nome: string } | null>(null);
+  const [user, setUser] = useState<{ nome: string; genero: string } | null>(
+    null
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function Page() {
 
       <SectionGrafico
         userName={user?.nome}
+        genero={user?.genero}
         onNewRodaClick={() => setIsModalOpen(true)}
       />
 

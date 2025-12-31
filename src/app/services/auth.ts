@@ -2,6 +2,7 @@ import api from "./api";
 
 export async function register(
   nome: string,
+  genero: string,
   cpf: string,
   email: string,
   estado: string,
@@ -12,6 +13,7 @@ export async function register(
 ) {
   const response = await api.post("/user", {
     nome,
+    genero,
     cpf,
     email,
     estado,
