@@ -507,6 +507,66 @@
     bottom: calc(var(--spacing) * 10);
   }
 
+  .bottom-\[-2\.3rem\] {
+    bottom: -2.3rem;
+  }
+
+  .bottom-\[-2\.5rem\] {
+    bottom: -2.5rem;
+  }
+
+  .bottom-\[-2\.6rem\] {
+    bottom: -2.6rem;
+  }
+
+  .bottom-\[-2\.7rem\] {
+    bottom: -2.7rem;
+  }
+
+  .bottom-\[-2\.8rem\] {
+    bottom: -2.8rem;
+  }
+
+  .bottom-\[-2rem\] {
+    bottom: -2rem;
+  }
+
+  .bottom-\[-3\.3rem\] {
+    bottom: -3.3rem;
+  }
+
+  .bottom-\[-3\.5rem\] {
+    bottom: -3.5rem;
+  }
+
+  .bottom-\[-3rem\] {
+    bottom: -3rem;
+  }
+
+  .bottom-\[-4\.5rem\] {
+    bottom: -4.5rem;
+  }
+
+  .bottom-\[-4\.8rem\] {
+    bottom: -4.8rem;
+  }
+
+  .bottom-\[-4rem\] {
+    bottom: -4rem;
+  }
+
+  .bottom-\[-5\.5rem\] {
+    bottom: -5.5rem;
+  }
+
+  .bottom-\[-5rem\] {
+    bottom: -5rem;
+  }
+
+  .bottom-\[2rem\] {
+    bottom: 2rem;
+  }
+
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
@@ -577,6 +637,10 @@
     margin-block: calc(var(--spacing) * 6);
   }
 
+  .mt-0 {
+    margin-top: calc(var(--spacing) * 0);
+  }
+
   .mt-0\.5 {
     margin-top: calc(var(--spacing) * .5);
   }
@@ -589,12 +653,104 @@
     margin-top: calc(var(--spacing) * 2);
   }
 
+  .mt-4 {
+    margin-top: calc(var(--spacing) * 4);
+  }
+
+  .mt-5 {
+    margin-top: calc(var(--spacing) * 5);
+  }
+
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
   }
 
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+
+  .mt-9 {
+    margin-top: calc(var(--spacing) * 9);
+  }
+
+  .mt-10 {
+    margin-top: calc(var(--spacing) * 10);
+  }
+
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
+  }
+
+  .mt-13 {
+    margin-top: calc(var(--spacing) * 13);
+  }
+
+  .mt-14 {
+    margin-top: calc(var(--spacing) * 14);
+  }
+
+  .mt-15 {
+    margin-top: calc(var(--spacing) * 15);
+  }
+
+  .mt-17 {
+    margin-top: calc(var(--spacing) * 17);
+  }
+
+  .mt-18 {
+    margin-top: calc(var(--spacing) * 18);
+  }
+
+  .mt-20 {
+    margin-top: calc(var(--spacing) * 20);
+  }
+
+  .mt-\[-1\.1rem\] {
+    margin-top: -1.1rem;
+  }
+
+  .mt-\[-1\.2rem\] {
+    margin-top: -1.2rem;
+  }
+
+  .mt-\[-1\.05rem\] {
+    margin-top: -1.05rem;
+  }
+
+  .mt-\[-1\.5rem\] {
+    margin-top: -1.5rem;
+  }
+
+  .mt-\[-1\.25rem\] {
+    margin-top: -1.25rem;
+  }
+
+  .mt-\[-1rem\] {
+    margin-top: -1rem;
+  }
+
+  .mt-\[-2\.5rem\] {
+    margin-top: -2.5rem;
+  }
+
+  .mt-\[-2rem\] {
+    margin-top: -2rem;
+  }
+
+  .mt-\[-2srem\] {
+    margin-top: -2srem;
+  }
+
+  .mt-\[-3rem\] {
+    margin-top: -3rem;
+  }
+
   .mt-auto {
     margin-top: auto;
+  }
+
+  .mb-0 {
+    margin-bottom: calc(var(--spacing) * 0);
   }
 
   .mb-2 {
@@ -609,12 +765,36 @@
     margin-bottom: calc(var(--spacing) * 4);
   }
 
+  .mb-5 {
+    margin-bottom: calc(var(--spacing) * 5);
+  }
+
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
 
+  .mb-7 {
+    margin-bottom: calc(var(--spacing) * 7);
+  }
+
   .mb-8 {
     margin-bottom: calc(var(--spacing) * 8);
+  }
+
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
+  }
+
+  .mb-11 {
+    margin-bottom: calc(var(--spacing) * 11);
+  }
+
+  .mb-12 {
+    margin-bottom: calc(var(--spacing) * 12);
+  }
+
+  .mb-19 {
+    margin-bottom: calc(var(--spacing) * 19);
   }
 
   .ml-2 {
@@ -953,6 +1133,10 @@
     margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
   }
 
+  .gap-x-2 {
+    column-gap: calc(var(--spacing) * 2);
+  }
+
   :where(.space-x-1 > :not(:last-child)) {
     --tw-space-x-reverse: 0;
     margin-inline-start: calc(calc(var(--spacing) * 1) * var(--tw-space-x-reverse));
@@ -1261,8 +1445,48 @@
     padding-right: calc(var(--spacing) * 12);
   }
 
+  .pb-0 {
+    padding-bottom: calc(var(--spacing) * 0);
+  }
+
+  .pb-4 {
+    padding-bottom: calc(var(--spacing) * 4);
+  }
+
+  .pb-5 {
+    padding-bottom: calc(var(--spacing) * 5);
+  }
+
   .pb-6 {
     padding-bottom: calc(var(--spacing) * 6);
+  }
+
+  .pb-7 {
+    padding-bottom: calc(var(--spacing) * 7);
+  }
+
+  .pb-8 {
+    padding-bottom: calc(var(--spacing) * 8);
+  }
+
+  .pb-9 {
+    padding-bottom: calc(var(--spacing) * 9);
+  }
+
+  .pb-12 {
+    padding-bottom: calc(var(--spacing) * 12);
+  }
+
+  .pb-14 {
+    padding-bottom: calc(var(--spacing) * 14);
+  }
+
+  .pb-15 {
+    padding-bottom: calc(var(--spacing) * 15);
+  }
+
+  .pb-16 {
+    padding-bottom: calc(var(--spacing) * 16);
   }
 
   .text-center {

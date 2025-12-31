@@ -151,7 +151,7 @@ export default function Login() {
               )}
             </div>
 
-            <div className="flex flex-col w-full relative group pb-6">
+            <div className="flex flex-col w-full relative group pb-0 mb-11  ">
               <label
                 className="text-sm font-medium text-gray-700 mb-2 transition-colors group-focus-within:text-[#e91e63]"
                 htmlFor="senha"
@@ -217,7 +217,7 @@ export default function Login() {
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+              <div className="w-full mt-[-1.25rem] bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-4 h-4 shrink-0"

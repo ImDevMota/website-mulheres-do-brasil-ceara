@@ -39,15 +39,55 @@ export default function page() {
   const [cpfError, setCpfError] = useState("");
   const [telefoneError, setTelefoneError] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
 
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (/\d/.test(event.target.value)) {
+      setNameError("O nome deve conter apenas letras");
+      return;
+    }
+
+    if (event.target.value.length < 10) {
+      setNameError("O nome deve ter pelo menos 10 caracteres");
+      return;
+    }
+
+    if (event.target.value.length > 100) {
+      setNameError("O nome deve ter no máximo 100 caracteres");
+      return;
+    }
+
+    setNameError("");
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length < 8) {
+      setPasswordError("A senha deve ter pelo menos 8 caracteres");
+      return;
+    }
+    setPasswordError("");
+  };
+
+  const handleConfirmPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.value !== formData.senha) {
+      setConfirmPasswordError("As senhas não coincidem");
+      return;
+    }
+    setConfirmPasswordError("");
+  };
 
   const handleCPFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let valor = event.target.value.replace(/\D/g, "");
@@ -117,13 +157,6 @@ export default function page() {
       return;
     }
 
-    if (formData.senha !== formData.confirmarSenha) {
-      setError("As senhas não coincidem");
-      return;
-    }
-
-    setError("");
-
     try {
       await register(
         formData.nome,
@@ -169,12 +202,16 @@ export default function page() {
               <input
                 type="text"
                 name="nome"
-                onChange={handleChange}
+                onChange={handleNameChange}
                 className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 h-12 w-full bg-gray-50/50 shadow-sm hover:border-gray-300 focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] focus:bg-white transition-all"
                 placeholder="Digite seu nome completo"
                 id="nome"
                 required
               />
+
+              {nameError && (
+                <p className="text-red-500 text-xs mt-1">{nameError}</p>
+              )}
             </div>
 
             <div className="flex flex-col w-full pb-6">
@@ -477,11 +514,11 @@ export default function page() {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="senha"
-                  onChange={handleChange}
+                  onChange={handlePasswordChange}
                   className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 pr-12 h-12 w-full bg-gray-50/50 shadow-sm hover:border-gray-300 focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] focus:bg-white transition-all"
-                  placeholder="Mínimo 6 caracteres"
+                  placeholder="Mínimo 8 caracteres"
                   id="senha"
-                  minLength={6}
+                  minLength={8}
                   required
                 />
 
@@ -529,6 +566,24 @@ export default function page() {
                   )}
                 </button>
               </div>
+
+              {passwordError && (
+                <p className="absolute bottom-0 left-0 text-red-500 text-xs font-medium flex items-center gap-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-3.5 h-3.5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {passwordError}
+                </p>
+              )}
             </div>
 
             <div className="flex flex-col w-full relative group pb-6">
@@ -542,7 +597,7 @@ export default function page() {
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmarSenha"
-                  onChange={handleChange}
+                  onChange={handleConfirmPasswordChange}
                   className="border-2 text-gray-800 border-gray-200 rounded-xl px-4 pr-12 h-12 w-full bg-gray-50/50 shadow-sm hover:border-gray-300 focus:outline-none focus:border-[#e91e63] focus:ring-2 focus:ring-[#fce4ec] focus:bg-white transition-all"
                   placeholder="Repita a senha"
                   id="confirmarSenha"
@@ -594,13 +649,25 @@ export default function page() {
                   )}
                 </button>
               </div>
-            </div>
 
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
-                {error}
-              </div>
-            )}
+              {confirmPasswordError && (
+                <p className="absolute bottom-0 left-0 text-red-500 text-xs font-medium flex items-center gap-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-3.5 h-3.5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {confirmPasswordError}
+                </p>
+              )}
+            </div>
 
             <button
               type="submit"
