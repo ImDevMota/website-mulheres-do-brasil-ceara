@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { criarRoda } from "../services/rodas";
 import { X } from "lucide-react";
 
@@ -63,7 +62,7 @@ export default function ModalNovaRoda({
       };
 
       await criarRoda(dadosParaEnviar);
-      toast.success("Roda criada com sucesso!");
+      console.log("Roda criada com sucesso!");
       // Reset form
       setFormData({
         tema: "",
@@ -77,7 +76,6 @@ export default function ModalNovaRoda({
       onClose();
     } catch (err: any) {
       console.error(err);
-      toast.error("Erro ao criar roda");
     }
   };
 

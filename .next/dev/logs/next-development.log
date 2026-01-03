@@ -1,303 +1,219 @@
-[00:00:01.230] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.344] Server  LOG      ✓ Ready in 1077ms
-[00:00:06.683] Server  LOG      ○ Compiling / ...
-[00:00:09.415] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:36.758] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:01:36.850] Server  LOG      ✓ Compiled in 222ms
-[00:01:37.292] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:06.891] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:03:06.898] Server  LOG      ✓ Compiled in 161ms
-[00:03:07.069] Server  ERROR    ⨯ ReferenceError: error is not defined
-[00:03:07.178] Server  ERROR    ⨯ ReferenceError: error is not defined
-[00:03:07.537] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:07.671] Browser ERROR   uncaughtError: ReferenceError: error is not defined
-[00:03:15.542] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:03:15.542] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:03:15.544] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:03:15.546] Server  LOG      ✓ Compiled in 93ms
-[00:03:15.700] Server  ERROR    ⨯ ReferenceError: error is not defined
-[00:03:15.802] Server  ERROR    ⨯ ReferenceError: error is not defined
-[00:03:16.070] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:16.206] Browser ERROR   uncaughtError: ReferenceError: error is not defined
-[00:03:32.236] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:03:32.236] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:03:32.237] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:03:32.327] Server  LOG      ✓ Compiled in 30ms
-[00:03:32.735] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:55.320] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:04:55.434] Server  LOG      ✓ Compiled in 58ms
-[00:04:56.098] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:05:21.622] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:05:21.689] Server  LOG      ✓ Compiled in 27ms
-[00:05:22.020] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:07:19.386] Server  LOG      ✓ Compiled in 270ms
-[00:07:19.390] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:07:20.927] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:07:46.256] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:07:46.259] Server  LOG      ✓ Compiled in 410ms
-[00:07:47.020] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:09:13.886] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:09:13.922] Server  LOG      ✓ Compiled in 200ms
-[00:09:14.612] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:09:44.756] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:09:44.835] Server  LOG      ✓ Compiled in 155ms
-[00:09:45.742] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:10:54.054] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:10:54.196] Server  LOG      ✓ Compiled in 269ms
-[00:10:54.625] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:11:52.937] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:11:53.040] Server  LOG      ✓ Compiled in 286ms
-[00:11:53.545] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:12:03.764] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:12:03.919] Server  LOG      ✓ Compiled in 275ms
-[00:12:04.429] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:13:02.895] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:13:02.955] Server  LOG      ✓ Compiled in 43ms
-[00:13:03.844] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:14:45.479] Server  LOG      ✓ Compiled in 29ms
-[00:14:45.588] Browser ERROR   uncaughtError: ReferenceError: error is not defined
-[00:15:34.675] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
-[00:15:34.900] Server  LOG      ✓ Compiled in 70ms
-[00:15:35.276] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:16:10.755] Server  LOG      ✓ Compiled in 26ms
-[00:16:17.734] Server  LOG      ✓ Compiled in 48ms
-[00:16:38.059] Server  LOG      ✓ Compiled in 30ms
-[00:16:49.874] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:19:44.690] Server  LOG      ✓ Compiled in 163ms
-[00:20:49.010] Server  LOG      ✓ Compiled in 209ms
-[00:20:52.382] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:21:09.093] Server  LOG      ✓ Compiled in 31ms
-[00:21:23.405] Server  LOG      ✓ Compiled in 39ms
-[00:21:26.314] Server  LOG      ✓ Compiled in 64ms
-[00:21:32.137] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:21:52.300] Server  LOG      ✓ Compiled in 25ms
-[00:22:06.622] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:22:15.502] Server  LOG      ✓ Compiled in 22ms
-[00:22:24.262] Server  LOG      ✓ Compiled in 46ms
-[00:22:30.212] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:22:38.722] Server  LOG      ✓ Compiled in 23ms
-[00:22:42.150] Server  LOG      ✓ Compiled in 25ms
-[00:22:46.510] Server  LOG      ✓ Compiled in 35ms
-[00:23:32.328] Server  LOG      ✓ Compiled in 27ms
-[00:23:41.133] Server  LOG      ✓ Compiled in 28ms
-[00:23:53.178] Server  LOG      ✓ Compiled in 165ms
-[00:24:04.304] Server  LOG      ✓ Compiled in 57ms
-[00:24:29.678] Server  LOG      ✓ Compiled in 25ms
-[00:25:04.794] Server  LOG      ✓ Compiled in 36ms
-[00:25:11.581] Server  LOG      ✓ Compiled in 57ms
-[00:26:15.190] Server  LOG      ✓ Compiled in 128ms
-[00:26:17.798] Server  LOG      ✓ Compiled in 61ms
-[00:26:36.717] Server  LOG      ✓ Compiled in 86ms
-[00:26:41.644] Server  LOG      ✓ Compiled in 31ms
-[00:26:45.632] Server  LOG      ✓ Compiled in 21ms
-[00:26:58.365] Server  LOG      ✓ Compiled in 23ms
-[00:27:03.168] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:27:11.021] Server  LOG      ✓ Compiled in 23ms
-[00:27:43.329] Server  LOG      ✓ Compiled in 27ms
-[00:27:52.894] Server  LOG      ✓ Compiled in 51ms
-[00:27:58.657] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:28:21.452] Server  LOG      ✓ Compiled in 47ms
-[00:28:35.338] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:29:55.059] Server  LOG      ✓ Compiled in 31ms
-[00:30:40.016] Server  LOG      ✓ Compiled in 21ms
-[00:30:51.319] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:30:57.927] Server  LOG      ✓ Compiled in 31ms
-[00:31:20.666] Server  LOG      ✓ Compiled in 36ms
-[00:31:32.822] Server  LOG      ✓ Compiled in 23ms
-[00:31:35.074] Server  LOG      ✓ Compiled in 97ms
-[00:31:38.524] Server  LOG      ✓ Compiled in 120ms
-[00:31:40.887] Server  LOG      ✓ Compiled in 133ms
-[00:31:44.253] Server  LOG      ✓ Compiled in 211ms
-[00:31:51.181] Server  LOG      ✓ Compiled in 60ms
-[00:32:54.423] Server  LOG      ✓ Compiled in 23ms
-[00:32:56.519] Server  LOG      ✓ Compiled in 37ms
-[00:33:00.450] Server  LOG      ✓ Compiled in 44ms
-[00:33:02.667] Server  LOG      ✓ Compiled in 20ms
-[00:33:23.125] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:33:55.810] Server  LOG      ✓ Compiled in 63ms
-[00:34:02.163] Server  LOG      ✓ Compiled in 43ms
-[00:34:16.492] Server  LOG      ✓ Compiled in 32ms
-[00:34:23.115] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:34:38.929] Server  LOG      ✓ Compiled in 19ms
-[00:34:42.207] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:35:05.450] Server  LOG      ✓ Compiled in 54ms
-[00:35:09.647] Server  LOG      ✓ Compiled in 47ms
-[00:35:15.546] Server  LOG      ✓ Compiled in 89ms
-[00:35:22.957] Server  LOG      ✓ Compiled in 44ms
-[00:35:30.352] Server  LOG      ✓ Compiled in 58ms
-[00:35:39.692] Server  LOG      ✓ Compiled in 65ms
-[00:35:41.163] Server  LOG      ✓ Compiled in 118ms
-[00:35:42.979] Server  LOG      ✓ Compiled in 28ms
-[00:36:00.194] Server  LOG      ✓ Compiled in 114ms
-[00:36:04.815] Server  LOG      ✓ Compiled in 29ms
-[00:36:12.236] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:36:38.652] Server  LOG      ✓ Compiled in 35ms
-[00:36:52.142] Server  LOG      ✓ Compiled in 20ms
-[00:36:54.725] Server  LOG      ✓ Compiled in 31ms
-[00:36:56.453] Server  LOG      ✓ Compiled in 46ms
-[00:37:00.243] Server  LOG      ✓ Compiled in 23ms
-[00:37:13.557] Server  LOG      ✓ Compiled in 75ms
-[00:37:17.413] Server  LOG      ✓ Compiled in 71ms
-[00:37:23.293] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:37:33.992] Server  LOG      ✓ Compiled in 20ms
-[00:37:44.037] Server  LOG      ✓ Compiled in 24ms
-[00:37:46.250] Server  LOG      ✓ Compiled in 32ms
-[00:37:49.106] Server  LOG      ✓ Compiled in 120ms
-[00:37:56.975] Server  LOG      ✓ Compiled in 52ms
-[00:38:04.139] Server  LOG      ✓ Compiled in 83ms
-[00:38:19.225] Server  LOG      ✓ Compiled in 186ms
-[00:38:30.991] Server  LOG      ✓ Compiled in 40ms
-[00:38:32.333] Server  LOG      ✓ Compiled in 99ms
-[00:38:59.691] Server  LOG      ✓ Compiled in 54ms
-[00:39:04.647] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:39:21.485] Server  LOG      ✓ Compiled in 26ms
-[00:39:24.921] Server  LOG      ✓ Compiled in 21ms
-[00:39:55.620] Server  LOG      ✓ Compiled in 23ms
-[00:39:58.609] Server  LOG      ✓ Compiled in 51ms
-[00:40:02.937] Server  LOG      ✓ Compiled in 50ms
-[00:40:16.908] Server  LOG      ✓ Compiled in 30ms
-[00:40:19.558] Server  LOG      ✓ Compiled in 25ms
-[00:40:36.082] Server  LOG      ✓ Compiled in 271ms
-[00:40:39.510] Server  LOG      ✓ Compiled in 61ms
-[00:40:58.790] Server  LOG      ✓ Compiled in 28ms
-[00:41:00.941] Server  LOG      ✓ Compiled in 120ms
-[00:41:02.622] Server  LOG      ✓ Compiled in 37ms
-[00:41:16.577] Server  LOG      ✓ Compiled in 44ms
-[00:41:32.405] Server  LOG      ✓ Compiled in 117ms
-[00:41:34.357] Server  LOG      ✓ Compiled in 61ms
-[00:41:36.893] Server  LOG      ✓ Compiled in 77ms
-[00:41:45.871] Server  LOG      ✓ Compiled in 32ms
-[00:41:51.684] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:41:59.679] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:42:14.915] Browser LOG     Erro capturado: {"errorCode":"CPF_NAO_REGISTRADO","errorMessage":"CPF não cadastrado no sistema","status":401}
-[00:42:25.624] Server  LOG      ✓ Compiled in 75ms
-[00:42:36.715] Server  LOG      ✓ Compiled in 43ms
-[00:42:42.421] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:43:20.805] Server  LOG      ✓ Compiled in 25ms
-[00:43:25.640] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:43:57.324] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:44:28.259] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:44:52.559] Server  LOG      ✓ Compiled in 42ms
-[00:45:05.428] Server  LOG      ✓ Compiled in 37ms
-[00:45:38.082] Server  LOG      ✓ Compiled in 24ms
-[00:45:40.387] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:45:44.346] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:46:10.912] Server  LOG      ✓ Compiled in 75ms
-[00:46:14.761] Server  LOG      ✓ Compiled in 49ms
-[00:46:19.502] Server  LOG      ✓ Compiled in 78ms
-[00:46:22.242] Server  LOG      ✓ Compiled in 56ms
-[00:46:23.998] Server  LOG      ✓ Compiled in 94ms
-[00:46:26.626] Server  LOG      ✓ Compiled in 56ms
-[00:46:28.592] Server  LOG      ✓ Compiled in 66ms
-[00:46:30.840] Server  LOG      ✓ Compiled in 29ms
-[00:46:33.039] Server  LOG      ✓ Compiled in 107ms
-[00:46:36.037] Server  LOG      ✓ Compiled in 92ms
-[00:46:45.807] Server  LOG      ✓ Compiled in 29ms
-[00:46:52.968] Server  LOG      ✓ Compiled in 142ms
-[00:46:59.206] Server  LOG      ✓ Compiled in 146ms
-[00:47:04.404] Server  LOG      ✓ Compiled in 38ms
-[00:47:17.989] Server  LOG      ✓ Compiled in 19ms
-[00:47:26.210] Server  LOG      ✓ Compiled in 28ms
-[00:47:34.491] Server  LOG      ✓ Compiled in 25ms
-[00:47:45.574] Server  LOG      ✓ Compiled in 34ms
-[00:48:03.132] Server  LOG      ✓ Compiled in 36ms
-[00:48:18.921] Server  LOG      ✓ Compiled in 33ms
-[00:48:36.031] Server  LOG      ✓ Compiled in 21ms
-[00:48:49.093] Server  LOG      ✓ Compiled in 24ms
-[00:48:52.241] Server  LOG      ✓ Compiled in 40ms
-[00:48:54.496] Server  LOG      ✓ Compiled in 26ms
-[00:49:00.406] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:49:05.467] Server  LOG      ✓ Compiled in 21ms
-[00:49:08.615] Server  LOG      ✓ Compiled in 21ms
-[00:49:14.246] Server  LOG      ✓ Compiled in 25ms
-[00:49:23.835] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:49:44.727] Server  LOG      ✓ Compiled in 29ms
-[00:49:55.319] Server  LOG      ✓ Compiled in 49ms
-[00:49:59.435] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:51:05.798] Server  LOG      ✓ Compiled in 56ms
-[00:51:36.545] Server  LOG      ✓ Compiled in 59ms
-[00:51:36.673] Browser ERROR   ./src/app/login/page.tsx:236:15
-Parsing ecmascript source code failed
-  234 |
-  235 |                 <button
-> 236 |               type="submit"
-      |               ^^^^
-  237 |               className="w-full mt-10 bg-[#e91e63] hover:bg-[#c2185b] text-white py-3 h-12 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
-  238 |             >
-  239 |               Entrar
+[00:00:01.800] Server  LOG      ✓ Ready in 1444ms
+[00:00:09.004] Server  LOG      ○ Compiling / ...
+[00:00:13.641] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:31.404] Server  ERROR    ⨯ ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
 
-Expected '</', got 'type'
+
 
 Import traces:
   Client Component Browser:
-    ./src/app/login/page.tsx [Client Component Browser]
-    ./src/app/login/page.tsx [Server Component]
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/app/login/page.tsx [Client Component SSR]
-    ./src/app/login/page.tsx [Server Component]
-[00:51:51.118] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:51:59.026] Server  LOG      ✓ Compiled in 22ms
-[00:52:18.228] Server  LOG      ✓ Compiled in 41ms
-[00:52:28.699] Server  LOG      ✓ Compiled in 23ms
-[00:52:47.611] Server  LOG      ✓ Compiled in 22ms
-[00:53:05.932] Server  LOG      ✓ Compiled in 25ms
-[00:53:14.371] Server  LOG      ✓ Compiled in 36ms
-[00:53:39.563] Server  LOG      ✓ Compiled in 61ms
-[00:53:56.830] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:54:04.184] Server  LOG      ✓ Compiled in 70ms
-[00:54:16.268] Server  LOG      ✓ Compiled in 23ms
-[00:54:20.489] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:54:30.561] Server  LOG      ✓ Compiled in 24ms
-[00:54:48.495] Server  LOG      ✓ Compiled in 66ms
-[00:54:52.374] Server  LOG      ✓ Compiled in 59ms
-[00:54:54.374] Server  LOG      ✓ Compiled in 54ms
-[00:54:57.962] Server  LOG      ✓ Compiled in 50ms
-[00:55:00.043] Server  LOG      ✓ Compiled in 30ms
-[00:55:03.503] Server  LOG      ✓ Compiled in 62ms
-[00:55:07.056] Server  LOG      ✓ Compiled in 60ms
-[00:55:15.765] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:55:27.326] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:55:38.812] Server  LOG      ✓ Compiled in 58ms
-[00:55:40.397] Server  LOG      ✓ Compiled in 22ms
-[00:55:53.852] Server  LOG      ✓ Compiled in 44ms
-[00:56:17.754] Server  LOG      ✓ Compiled in 42ms
-[00:56:23.001] Server  LOG      ✓ Compiled in 46ms
-[00:56:34.029] Server  LOG      ✓ Compiled in 65ms
-[00:56:43.503] Server  LOG      ✓ Compiled in 67ms
-[00:56:52.288] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:57:05.794] Browser LOG     Erro capturado: {"errorCode":"CPF_NAO_REGISTRADO","errorMessage":"CPF não cadastrado no sistema","status":401}
-[00:57:13.381] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:57:49.814] Server  LOG      ✓ Compiled in 63ms
-[00:58:11.419] Server  LOG      ✓ Compiled in 41ms
-[00:58:22.176] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[00:59:32.134] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:59:38.549] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[01:00:02.003] Browser LOG     Erro capturado: {"errorCode":"SENHA_INCORRETA","errorMessage":"Senha incorreta","status":401}
-[01:00:08.149] Browser LOG     Erro capturado: {"errorCode":"CPF_NAO_REGISTRADO","errorMessage":"CPF não cadastrado no sistema","status":401}
-[01:00:15.194] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:00:33.268] Server  LOG      ✓ Compiled in 30ms
-[01:02:38.790] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:02:38.915] Server  LOG      ✓ Compiled in 82ms
-[01:02:39.796] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:03:34.288] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:03:34.488] Server  LOG      ✓ Compiled in 48ms
-[01:03:35.370] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:07:35.642] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:07:35.719] Server  LOG      ✓ Compiled in 36ms
-[01:07:36.377] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:08:01.436] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:08:01.652] Server  LOG      ✓ Compiled in 34ms
-[01:08:02.445] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:08:19.667] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:08:19.682] Server  LOG      ✓ Compiled in 45ms
-[01:08:20.826] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:08:37.721] Server  LOG      ✓ Compiled in 136ms
-[01:08:37.722] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:08:39.205] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:08:53.711] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:08:53.718] Server  LOG      ✓ Compiled in 40ms
-[01:08:54.521] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:08:55.974] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/app/register/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:08:56.005] Server  LOG      ✓ Compiled in 73ms
-[01:08:56.712] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:00:31.605] Browser ERROR   ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:00:32.491] Browser ERROR   ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:00:32.600] Browser ERROR   ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:00:33.077] Browser ERROR   ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:00:33.115] Server  ERROR    ⨯ ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:00:33.400] Browser ERROR   uncaughtError: Error: ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:00:33.528] Browser ERROR   ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:00:33.631] Browser ERROR   ./src/app/components/ModalNovaRoda.tsx:4:1
+Module not found: Can't resolve 'react-toastify'
+  2 |
+  3 | import { useState } from "react";
+> 4 | import { toast } from "react-toastify";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { criarRoda } from "../services/rodas";
+  6 | import { X } from "lucide-react";
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Client Component Browser]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/components/ModalNovaRoda.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Client Component SSR]
+    ./src/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:02:02.081] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:12.218] Server  LOG      ✓ Compiled in 109ms
+[00:10:18.352] Server  LOG      ✓ Compiled in 314ms
+[00:14:01.795] Server  LOG      ✓ Compiled in 70ms
+[00:20:12.377] Server  LOG      ✓ Compiled in 349ms
+[00:20:36.488] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

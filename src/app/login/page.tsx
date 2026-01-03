@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 import { login } from "../services/auth";
 import Header from "../components/Header";
@@ -60,12 +59,9 @@ export default function Login() {
       const response = await login(formData.cpf, formData.senha);
 
       if (!response) {
-        toast.error("Usuário não encontrado");
         setError("Usuário não encontrado");
         return;
       }
-
-      toast.success("Login realizado com sucesso!");
 
       router.push("/dashboard");
     } catch (err: any) {
@@ -79,22 +75,18 @@ export default function Login() {
       // 404 = CPF não encontrado
       if (status === 404 || errorCode === "CPF_NAO_REGISTRADO") {
         setError("Este CPF não está cadastrado no sistema");
-        toast.error("CPF não cadastrado");
       }
       // 401 = Senha incorreta
       else if (status === 401 || errorCode === "SENHA_INCORRETA") {
         setError("A senha informada está incorreta");
-        toast.error("Senha incorreta");
       }
       // 400 = Campos obrigatórios
       else if (status === 400 || errorCode === "CAMPOS_OBRIGATORIOS") {
         setError("Preencha todos os campos corretamente");
-        toast.error("Preencha todos os campos");
       }
       // Outros erros
       else {
         setError(errorMessage || "Erro ao realizar login. Tente novamente");
-        toast.error("Erro ao realizar login");
       }
     }
   };

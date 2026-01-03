@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 import { register } from "../services/auth";
 import Header from "../components/Header";
@@ -170,11 +169,9 @@ export default function page() {
         formData.senha
       );
 
-      toast.success("Usuário Cadastrado com Sucesso!");
-
       router.push("/login");
     } catch (err) {
-      toast.error("Erro ao Cadastrar Usuário");
+      console.error(err);
     }
   };
 

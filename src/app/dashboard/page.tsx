@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 import { getUserProfile } from "../services/auth";
 import SectionRodas from "../components/SectionRodas";
 import SectionHistoricoRodas from "../components/SectionHistoricoRodas";
-import SectionGrafico from "../components/SectionGrafico";
+import SectionDashboard from "../components/SectionDashboard";
 
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +38,7 @@ export default function Page() {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
 
-      <SectionGrafico
+      <SectionDashboard
         userName={user?.nome}
         genero={user?.genero}
         onNewRodaClick={() => setIsModalOpen(true)}
